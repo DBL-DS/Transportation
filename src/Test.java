@@ -11,7 +11,8 @@ public class Test {
         try {
 
             ArrayList<String[]> csvList = new ArrayList<String[]>(); //用来保存数据
-            String csvFilePath = "C:\\Users\\Allen\\Desktop\\模拟舱用\\BetterCallSoul\\Transportation\\Example\\use.csv";
+            String separator = System.getProperty("file.separator");
+            String csvFilePath = "."+separator+"Example"+separator+"use.csv";
             CsvReader reader = new CsvReader(csvFilePath,',', Charset.forName("SJIS"));    //一般用这编码读就可以了
 
             reader.readHeaders(); // 跳过表头   如果需要表头的话，不要写这句。
@@ -36,5 +37,6 @@ public class Test {
 
     public static void main(String[] args) {
         readeCsv();
+
     }
 }
