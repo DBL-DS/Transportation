@@ -12,6 +12,6 @@
 hs_err_pid*
 
 # intellij
-.iml
+*.iml
 out/
 .idea/
