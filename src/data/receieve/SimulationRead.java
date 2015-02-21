@@ -64,9 +64,12 @@ public class SimulationRead {
 
     public static void main(String[] args){
         String separator = System.getProperty("file.separator");
-        String filePath = "."+separator+"csvFile"+separator+"ue.csv";
+        String filePath = "."+separator+"csvFile"+separator+"use.csv";
 
         SimulationRead simulationRead = new SimulationRead();
         ArrayList<SimulatedVehicle> simulationList = simulationRead.getListFromCsvFile(filePath);
+        System.out.println(simulationList.size());
+        long start=System.currentTimeMillis();
+
     }
 }

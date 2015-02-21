@@ -38,7 +38,9 @@ public class MainForm {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.NimbusLookAndFeel");
+              UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+          // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
@@ -48,7 +50,7 @@ public class MainForm {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JFrame frame = new JFrame("MainForm");
+        JFrame frame = new JFrame("SCANeR 数据仿真");
         frame.setContentPane(new MainForm().wrapPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
