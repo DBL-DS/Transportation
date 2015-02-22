@@ -13,7 +13,7 @@ public class MainForm {
     private JLabel timeLabel;
     private JSlider slider1;
     private JPanel viewChoicePanel;
-    private JButton 行车轨迹Button;
+    private JButton trailButton;
     private JButton velocityButton;
     private JButton laneButton;
     private JButton accelerationButton;
@@ -37,6 +37,7 @@ public class MainForm {
     private JButton playSpeed7;
     private JButton playSpeed8;
     private JLabel filePathLabel;
+    private JButton baseDataButton;
 
     public MainForm() {
         filePathChooseButton.addActionListener(new ActionListener() {
