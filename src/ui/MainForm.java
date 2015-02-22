@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Hugh on 2015/2/14 0014.
@@ -36,9 +38,24 @@ public class MainForm {
     private JButton playSpeed8;
     private JLabel filePathLabel;
 
+    public MainForm() {
+        filePathChooseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                int returnVal = fileChooser.showOpenDialog(fileChooser);
+                if(returnVal == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                    filePathTextField.setText(filePath);
+                }
+            }
+        });
+    }
+
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+              UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
@@ -48,7 +65,7 @@ public class MainForm {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JFrame frame = new JFrame("MainForm");
+        JFrame frame = new JFrame("SCANeR 数据仿真");
         frame.setContentPane(new MainForm().wrapPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
