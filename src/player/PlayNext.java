@@ -3,11 +3,11 @@ package player;
 /**
  * Created by Hugh on 2015/2/23 0023.
  */
-public class PlayerThread extends Thread {
+public class PlayNext implements Runnable {
     private Player player;
     private boolean isNotOver;
 
-    public PlayerThread(Player player) {
+    public PlayNext(Player player) {
         this.player = player;
         this.isNotOver = true;
     }
@@ -15,7 +15,18 @@ public class PlayerThread extends Thread {
     protected void setNotOver(boolean isNotOver) {
         this.isNotOver = isNotOver;
     }
+    protected void pause(){
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    protected void play(){
+        notifyAll();
+    }
 
+    @Override
     public void run() {
         while (isNotOver){
             try {
