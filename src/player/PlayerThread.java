@@ -5,13 +5,19 @@ package player;
  */
 public class PlayerThread extends Thread {
     private Player player;
+    private boolean isNotOver;
 
     public PlayerThread(Player player) {
         this.player = player;
+        this.isNotOver = true;
+    }
+
+    protected void setNotOver(boolean isNotOver) {
+        this.isNotOver = isNotOver;
     }
 
     public void run() {
-        while (true){
+        while (isNotOver){
             try {
                 Thread.sleep(Math.round(player.getPeriodBetweenDataUnit()/player.getSpeed()));
             } catch (InterruptedException e) {

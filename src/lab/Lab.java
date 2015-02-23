@@ -9,14 +9,17 @@ import java.util.ArrayList;
  */
 public class Lab {
     public static void main(String[] args){
-        ArrayList<String> strings= new ArrayList<String>();
-        strings.add("a");
-        strings.add("b");
-        strings.add("c");
-        strings.add("d");
-        strings.add("e");
-        while (strings.size()!=0){
-          System.out.println(strings.remove(0));
-        }
+//        ArrayList<String> strings= new ArrayList<String>();
+//        strings.add("a");
+//        strings.add("b");
+//        strings.add("c");
+//        strings.add("d");
+//        strings.add("e");
+//        while (strings.size()!=0){
+//          System.out.println(strings.remove(0));
+//        }
+        String a = new String("a");
+        a = new String("b");
+        System.out.print(a);
     }
 }
