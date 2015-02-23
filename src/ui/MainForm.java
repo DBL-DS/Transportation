@@ -1,5 +1,7 @@
 package ui;
 
+import player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,10 +23,10 @@ public class MainForm {
     private JPanel timeControlPanel;
     private JPanel viewPanel;
     private JButton dashboardButton;
-    private JPanel exporDataPanel;
-    private JButton setStartPointButton;
-    private JButton setEndPointButton;
-    private JButton exportDataButton;
+    private JPanel getDataPanel;
+    private JButton getDataFromSimulationButton;
+    private JButton simulationSettingsButton;
+    private JButton importDataButton;
     private JTextField filePathTextField;
     private JButton filePathChooseButton;
     private JButton startAndPauseButton;
@@ -38,6 +40,7 @@ public class MainForm {
     private JButton playSpeed8;
     private JLabel filePathLabel;
     private JButton baseDataButton;
+    private JLabel separatorLabel;
     private JPanel base;
     private JPanel trail;
     private JPanel lane;
@@ -47,6 +50,7 @@ public class MainForm {
     private JPanel evaluation;
     private JPanel now;
     private JPanel welcome;
+    private Player player;
 
     public MainForm() {
         initViewPanels();
@@ -116,6 +120,7 @@ public class MainForm {
                 transformViewPanel(evaluation);
             }
         });
+
     }
     private void transformViewPanel(JPanel panel){
         if (now==null || !now.equals(panel)){
@@ -141,7 +146,17 @@ public class MainForm {
                 }
             }
         });
+        importDataButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.print(this.getClass().getName());
+            }
+        });
+
     }
+
+
 
     public static void main(String[] args) {
         try {
@@ -160,6 +175,10 @@ public class MainForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        //居中显示窗体
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = frame.getSize();
+        frame.setLocation((screenSize.width-frameSize.width)/2,(screenSize.height-frameSize.height)/2);
     }
 
 }
