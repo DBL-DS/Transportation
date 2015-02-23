@@ -1,5 +1,6 @@
 package ui;
 
+import data.structure.SimulatedVehicle;
 import player.Player;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ public class MainForm {
     private JButton importDataButton;
     private JTextField filePathTextField;
     private JButton filePathChooseButton;
-    private JButton startAndPauseButton;
+    private JButton playAndPauseButton;
     private JButton playSpeed1;
     private JButton playSpeed2;
     private JButton playSpeed3;
@@ -41,83 +42,90 @@ public class MainForm {
     private JLabel filePathLabel;
     private JButton baseDataButton;
     private JLabel separatorLabel;
-    private JPanel base;
-    private JPanel trail;
-    private JPanel lane;
-    private JPanel velocity;
-    private JPanel acceleration;
-    private JPanel dashboard;
-    private JPanel evaluation;
+    private JTextField dataUnitGapTextField;
+    private BaseData base;
+    private Trail trail;
+    private Lane lane;
+    private Velocity velocity;
+    private Acceleration acceleration;
+    private Dashboard dashboard;
+    private Evaluation evaluation;
     private JPanel now;
-    private JPanel welcome;
+    private Welcome welcome;
     private Player player;
+    private ListenPlayingDataThread listenPlayingDataThread;
 
     public MainForm() {
         initViewPanels();
         setTransformViewPanelButtonEvent();
         setControlPanelEvent();
+        startListenPlayingDataThread();
+    }
+
+    protected Player getPlayer(){
+        return player;
     }
 
     private void initViewPanels(){
-        base = new BaseData().getBaseDataPanel();
-        trail = new Trail().getTrailPanel();
-        lane = new Lane().getLanePanel();
-        velocity = new Velocity().getVelocityPanel();
-        acceleration = new Acceleration().getAccelerationPanel();
-        dashboard = new Dashboard().getDashboardPanel();
-        evaluation = new Evaluation().getEvaluationPanel();
-        welcome = new Welcome().getWelcomePanel();
+        base = new BaseData();
+        trail = new Trail();
+        lane = new Lane();
+        velocity = new Velocity();
+        acceleration = new Acceleration();
+        dashboard = new Dashboard();
+        evaluation = new Evaluation();
+        welcome = new Welcome();
 
-        transformViewPanel(welcome);
+        transformViewPanel(welcome.getWelcomePanel());
     }
     private void setTransformViewPanelButtonEvent(){
         baseDataButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(base);
+                transformViewPanel(base.getBaseDataPanel());
             }
         });
         trailButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(trail);
+                transformViewPanel(trail.getTrailPanel());
             }
         });
         laneButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(lane);
+                transformViewPanel(lane.getLanePanel());
             }
         });
         velocityButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(velocity);
+                transformViewPanel(velocity.getVelocityPanel());
             }
         });
         accelerationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(acceleration);
+                transformViewPanel(acceleration.getAccelerationPanel());
             }
         });
         dashboardButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(dashboard);
+                transformViewPanel(dashboard.getDashboardPanel());
             }
         });
         evaluationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(evaluation);
+                transformViewPanel(evaluation.getEvaluationPanel());
             }
         });
 
@@ -150,12 +158,43 @@ public class MainForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                System.out.print(this.getClass().getName());
+                String filePath = filePathTextField.getText();
+                player = new Player(filePath);
+                if (player.isReadyToPlay()) {
+                    AlertDialog dialog = new AlertDialog("读取数据成功！");
+                    dialog.showDialog();
+                    dialog = null;
+                } else {
+                    AlertDialog dialog = new AlertDialog("读取数据失败！请检查文件路径和文件！");
+                    dialog.showDialog();
+                    dialog = null;
+                }
             }
         });
-
+        playAndPauseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (playAndPauseButton.getText().equals("播放")){
+                    if (player.isReadyToPlay()){
+                        player.play();
+                        playAndPauseButton.setText("暂停");
+                    }
+                }else {
+                    player.pause();
+                    playAndPauseButton.setText("播放");
+                }
+            }
+        });
     }
 
+    private void startListenPlayingDataThread(){
+        listenPlayingDataThread = new ListenPlayingDataThread(this);
+        listenPlayingDataThread.start();
+    }
+    protected void setUI(SimulatedVehicle simulatedVehicle){
+        base.receiveData(simulatedVehicle);
+    }
 
 
     public static void main(String[] args) {

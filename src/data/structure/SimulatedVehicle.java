@@ -18,6 +18,15 @@ public class SimulatedVehicle {
     private double positionX;
     private double positionY;
     private double positionZ;
+    private double lane;
+
+    public double getLane() {
+        return lane;
+    }
+
+    public void setLane(double lane) {
+        this.lane = lane;
+    }
 
     public SimulatedVehicle() {
     }

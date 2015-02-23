@@ -14,13 +14,13 @@ public class Player {
     private ArrayList<SimulatedVehicle> simulatedVehicles;
     private SimulatedVehicle playingData;
     private PlayerThread playerThread;
-    private boolean dataIsUpdated;
+    private boolean dataUpdated;
+    private boolean readyToPlay;
 
     //导入文件数据初始化方法
     public Player(String filePath) {
         initDefaultData();
-        SimulationRead reader = new SimulationRead();
-        simulatedVehicles = reader.getListFromCsvFile(filePath);
+        readDataFromFile(filePath);
     }
 
     //接收模拟舱数据初始化方法
@@ -28,10 +28,23 @@ public class Player {
         initDefaultData();
     }
 
+
     public void initDefaultData(){
         speed = 1;
-        dataIsUpdated = false;
+        dataUpdated = false;
         periodBetweenDataUnit = 1000;
+        readyToPlay = false;
+    }
+    private void readDataFromFile(String filePath){
+        SimulationRead reader = new SimulationRead();
+        simulatedVehicles = reader.getListFromCsvFile(filePath);
+        if (simulatedVehicles!=null){
+            readyToPlay = true;
+        }
+    }
+
+    public boolean isDataUpdated() {
+        return dataUpdated;
     }
 
     public void setSpeed(double speed){
@@ -46,14 +59,20 @@ public class Player {
     }
 
     public SimulatedVehicle getPlayingData() {
-        dataIsUpdated = false;
+        dataUpdated = false;
         return playingData;
+    }
+
+    public boolean isReadyToPlay() {
+        return readyToPlay;
     }
 
     public void play(){
         if (playerThread==null){
             playerThread = new PlayerThread(this);
             playerThread.start();
+        }else {
+            playerThread.notifyAll();
         }
 
     }
@@ -64,10 +83,13 @@ public class Player {
             e.printStackTrace();
         }
     }
+    public void over(){
+        playerThread.setNotOver(false);
+    }
     protected boolean playNextFrame(){
         if (simulatedVehicles.size()!=0){
             playingData = simulatedVehicles.remove(0);
-            dataIsUpdated = true;
+            dataUpdated = true;
             return true;
         }
 
