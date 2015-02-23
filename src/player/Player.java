@@ -13,7 +13,8 @@ public class Player {
     private double periodBetweenDataUnit;
     private ArrayList<SimulatedVehicle> simulatedVehicles;
     private SimulatedVehicle playingData;
-    private PlayerThread playerThread;
+    private PlayNext playNext;
+    private Thread playerThread;
     private boolean dataUpdated;
     private boolean readyToPlay;
 
@@ -68,23 +69,19 @@ public class Player {
     }
 
     public void play(){
-        if (playerThread==null){
-            playerThread = new PlayerThread(this);
+        if (playNext ==null){
+            playNext = new PlayNext(this);
+            playerThread = new Thread(playNext);
             playerThread.start();
         }else {
-            playerThread.notifyAll();
+            playNext.play();
         }
-
     }
     public void pause(){
-        try {
-            playerThread.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        playNext.pause();
     }
     public void over(){
-        playerThread.setNotOver(false);
+        playNext.setNotOver(false);
     }
     protected boolean playNextFrame(){
         if (simulatedVehicles.size()!=0){
