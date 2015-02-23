@@ -41,6 +41,7 @@ public class SimulationRead {
                 s.setPositionX(Double.parseDouble(reader.get(VehicleCSV.PositionX)));
                 s.setPositionY(Double.parseDouble(reader.get(VehicleCSV.PositionY)));
                 s.setPositionZ(Double.parseDouble(reader.get(VehicleCSV.PositionZ)));
+                s.setLane(Double.parseDouble(reader.get(VehicleCSV.Lane)));
                 simulationList.add(s);
             }
             reader.close();
