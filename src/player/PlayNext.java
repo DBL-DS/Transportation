@@ -6,27 +6,33 @@ package player;
 public class PlayNext implements Runnable {
     private Player player;
     private boolean isNotOver;
+    private boolean askForWait;
 
     public PlayNext(Player player) {
         this.player = player;
         this.isNotOver = true;
+        this.askForWait = false;
     }
 
     protected void setNotOver(boolean isNotOver) {
         this.isNotOver = isNotOver;
     }
-    protected void pause(){
+
+    protected void setAskForWait(boolean askForWait) {
+        this.askForWait = askForWait;
+    }
+
+    protected synchronized void pause(){
         try {
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-    protected void play(){
+    protected synchronized void awake(){
         notifyAll();
     }
 
-    @Override
     public void run() {
         while (isNotOver){
             try {
@@ -35,6 +41,9 @@ public class PlayNext implements Runnable {
                 e.printStackTrace();
             }
             player.playNextFrame();
+            while (askForWait){
+                pause();
+            }
         }
     }
 }

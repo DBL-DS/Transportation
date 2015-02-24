@@ -43,6 +43,7 @@ public class MainForm {
     private JButton baseDataButton;
     private JLabel separatorLabel;
     private JTextField dataUnitGapTextField;
+    private JButton setDataUnitGapButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;

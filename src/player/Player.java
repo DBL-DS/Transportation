@@ -54,6 +54,9 @@ public class Player {
     protected double getSpeed(){
         return this.speed;
     }
+    public void setPeriodBetweenDataUnit(double periodBetweenDataUnit) {
+        this.periodBetweenDataUnit = periodBetweenDataUnit;
+    }
 
     protected double getPeriodBetweenDataUnit() {
         return periodBetweenDataUnit;
@@ -74,14 +77,16 @@ public class Player {
             playerThread = new Thread(playNext);
             playerThread.start();
         }else {
-            playNext.play();
+            playNext.setAskForWait(false);
+            playNext.awake();
         }
     }
     public void pause(){
-        playNext.pause();
+        playNext.setAskForWait(true);
     }
     public void over(){
-        playNext.setNotOver(false);
+        playNext.setAskForWait(false);
+        playNext.awake();
     }
     protected boolean playNextFrame(){
         if (simulatedVehicles.size()!=0){
