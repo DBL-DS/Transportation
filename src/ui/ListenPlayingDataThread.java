@@ -23,6 +23,8 @@ public class ListenPlayingDataThread extends Thread{
             if (p.isDataUpdated()){
                 SimulatedVehicle newVehicle = p.getPlayingData();
                 mainForm.setUI(newVehicle);
+            } else if (p.isPlayOver()){
+                mainForm.playIsOver();
             }
         }
     }

@@ -2,6 +2,7 @@ package player;
 
 import data.receieve.SimulationRead;
 import data.structure.SimulatedVehicle;
+import ui.MainForm;
 
 import java.util.ArrayList;
 
@@ -10,9 +11,11 @@ import java.util.ArrayList;
  */
 public class Player {
     private double speed;
-    private double periodBetweenDataUnit;
+    private double dataUnitTimeGap;
     private ArrayList<SimulatedVehicle> simulatedVehicles;
     private SimulatedVehicle playingData;
+    private int totalIndex;
+    private int currentIndex;
     private PlayNext playNext;
     private Thread playerThread;
     private boolean dataUpdated;
@@ -33,14 +36,16 @@ public class Player {
     public void initDefaultData(){
         speed = 1;
         dataUpdated = false;
-        periodBetweenDataUnit = 1000;
+        dataUnitTimeGap = 1000;
         readyToPlay = false;
+        currentIndex = 0;
     }
     private void readDataFromFile(String filePath){
         SimulationRead reader = new SimulationRead();
         simulatedVehicles = reader.getListFromCsvFile(filePath);
         if (simulatedVehicles!=null){
             readyToPlay = true;
+            totalIndex = simulatedVehicles.size();
         }
     }
 
@@ -51,24 +56,49 @@ public class Player {
     public void setSpeed(double speed){
         this.speed = speed;
     }
-    protected double getSpeed(){
+    public double getSpeed(){
         return this.speed;
     }
-    public void setPeriodBetweenDataUnit(double periodBetweenDataUnit) {
-        this.periodBetweenDataUnit = periodBetweenDataUnit;
+    public void setDataUnitTimeGap(double dataUnitTimeGap) {
+        this.dataUnitTimeGap = dataUnitTimeGap;
     }
 
-    protected double getPeriodBetweenDataUnit() {
-        return periodBetweenDataUnit;
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
+    public double getDataUnitTimeGap() {
+        return dataUnitTimeGap;
     }
 
     public SimulatedVehicle getPlayingData() {
         dataUpdated = false;
         return playingData;
     }
+    public double getCurrentPlayingSpeed(){
+        double currentSpeed = dataUnitTimeGap /speed;
+        return currentSpeed;
+    }
+    public double getTotalTime(){
+        return totalIndex*dataUnitTimeGap;
+    }
+    public double getCurrentTime(){
+        return currentIndex*dataUnitTimeGap;
+    }
+
+    public int getTotalIndex() {
+        return totalIndex;
+    }
 
     public boolean isReadyToPlay() {
         return readyToPlay;
+    }
+    public boolean isPlayOver(){
+        if (currentIndex == totalIndex){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public void play(){
@@ -85,16 +115,18 @@ public class Player {
         playNext.setAskForWait(true);
     }
     public void over(){
-        playNext.setAskForWait(false);
-        playNext.awake();
+        playNext.setNotOver(false);
+        playNext = null;
+        currentIndex = 0;
     }
     protected boolean playNextFrame(){
-        if (simulatedVehicles.size()!=0){
-            playingData = simulatedVehicles.remove(0);
+        if (currentIndex<totalIndex){
+            playingData = simulatedVehicles.get(currentIndex);
+            currentIndex++;
             dataUpdated = true;
             return true;
         }
-
+        over();
         return false;
     }
 }
