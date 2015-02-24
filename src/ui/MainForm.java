@@ -285,6 +285,7 @@ public class MainForm {
         refreshStatusPanel();
         refreshTimeSlider();
         base.receiveData(simulatedVehicle);
+        velocity.receiveData(simulatedVehicle);
     }
     public void refreshStatusPanel(){
         if (player!=null){
