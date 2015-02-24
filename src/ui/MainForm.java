@@ -195,6 +195,7 @@ public class MainForm {
     }
     protected void setUI(SimulatedVehicle simulatedVehicle){
         base.receiveData(simulatedVehicle);
+        velocity.receiveData(simulatedVehicle);
     }
 
 
