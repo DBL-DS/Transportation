@@ -116,21 +116,21 @@
                   <text value="16x"/>
                 </properties>
               </component>
-              <component id="7783b" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="单元数据时间间隔(ms)"/>
-                </properties>
-              </component>
               <component id="f8903" class="javax.swing.JTextField" binding="dataUnitGapTextField">
                 <constraints>
-                  <grid row="1" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="50" height="-1"/>
                   </grid>
                 </constraints>
                 <properties/>
+              </component>
+              <component id="7ab81" class="javax.swing.JButton" binding="setDataUnitGapButton">
+                <constraints>
+                  <grid row="1" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="设置数据时间间隔"/>
+                </properties>
               </component>
             </children>
           </grid>
