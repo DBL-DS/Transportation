@@ -36,7 +36,7 @@ public class PlayNext implements Runnable {
     public void run() {
         while (isNotOver){
             try {
-                Thread.sleep(Math.round(player.getPeriodBetweenDataUnit()/player.getSpeed()));
+                Thread.sleep(Math.round(player.getDataUnitTimeGap()/player.getSpeed()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
