@@ -3,6 +3,8 @@ package ui;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -39,6 +41,11 @@ public class Velocity {
     private XYSeries xyseries;
     public Velocity()
     {
+        initPanel();
+        refreshSize();
+    }
+
+    public void initPanel(){
         velocityPanel = new JPanel();
         XYDataset xydataset = createDataset();
         JFreeChart jfreechart = ChartFactory.createXYLineChart(
@@ -67,5 +74,31 @@ public class Velocity {
     }
     public JPanel getVelocityPanel() {
         return velocityPanel;
+    }
+    public void refreshSize(){
+        chartPanel.setSize(velocityPanel.getSize());
+        chartPanel.setLocation(0,0);
+        chartPanel.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                chartPanel.setSize(velocityPanel.getSize());
+                chartPanel.setLocation(0,0);
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+
+            }
+        });
     }
 }

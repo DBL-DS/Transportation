@@ -5,8 +5,12 @@
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
-    <border type="none"/>
+    <properties>
+      <background color="-12828863"/>
+    </properties>
+    <border type="none">
+      <color color="-4521976"/>
+    </border>
     <children/>
   </grid>
 </form>

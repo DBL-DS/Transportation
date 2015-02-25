@@ -14,6 +14,7 @@ import java.awt.event.*;
  * Created by Hugh on 2015/2/14 0014.
  */
 public class MainForm {
+    private JFrame mainFrame;
     private JPanel wrapPanel;
     private JPanel controlPanel;
     private JLabel timeLabel;
@@ -69,9 +70,13 @@ public class MainForm {
         initViewPanels();
         setTransformViewPanelButtonEvent();
         setControlPanelEvent();
+        setWindowResizeEvent();
         startListenPlayingDataThread();
     }
 
+    public JPanel getWrapPanel() {
+        return wrapPanel;
+    }
     protected Player getPlayer(){
         return player;
     }
@@ -275,6 +280,10 @@ public class MainForm {
                 }
             }
         });
+    }
+
+    private void setWindowResizeEvent(){
+
     }
 
     private void startListenPlayingDataThread(){
