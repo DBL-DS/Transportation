@@ -288,6 +288,7 @@ public class MainForm {
         dashboard.receiveData(simulatedVehicle);
         velocity.receiveData(simulatedVehicle);
         acceleration.receiveData(simulatedVehicle);
+        trail.receiveData(simulatedVehicle);
     }
     public void refreshStatusPanel(){
         if (player!=null){
