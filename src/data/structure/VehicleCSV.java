@@ -18,5 +18,5 @@ public class VehicleCSV {
     public static final String PositionX = "POSITION X(m)";
     public static final String PositionY = "POSITION Y(m)";
     public static final String PositionZ = "POSITION Z(m)";
-    public static final String Lane = "NUMBER OF LANES(-)";
+    public static final String Lane = "EXPORT CHANNEL 29(-)";//此项有可能发生改变！
 }
