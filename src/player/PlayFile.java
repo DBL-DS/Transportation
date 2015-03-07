@@ -3,12 +3,12 @@ package player;
 /**
  * Created by Hugh on 2015/2/23 0023.
  */
-public class PlayNext implements Runnable {
+public class PlayFile implements Runnable {
     private Player player;
     private boolean isNotOver;
     private boolean askForWait;
 
-    public PlayNext(Player player) {
+    public PlayFile(Player player) {
         this.player = player;
         this.isNotOver = true;
         this.askForWait = false;

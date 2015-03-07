@@ -11,10 +11,10 @@ import java.util.ArrayList;
 /**
  * Created by Hugh on 2015/2/14 0014.
  */
-public class SimulationRead {
+public class SimulationReadFile {
     private ArrayList<SimulatedVehicle> simulationList;
 
-    public SimulationRead() {
+    public SimulationReadFile() {
         simulationList = new ArrayList<SimulatedVehicle>();
     }
 
@@ -27,21 +27,20 @@ public class SimulationRead {
             reader.readHeaders();
             while (reader.readRecord()){
                 SimulatedVehicle s = new SimulatedVehicle();
-                s.setSaveTime(Double.parseDouble(reader.get(VehicleCSV.SaveTime)));
-                s.setSimulationTime(Double.parseDouble(reader.get(VehicleCSV.SimulationTime)));
-                s.setHandleDegree(Double.parseDouble(reader.get(VehicleCSV.HandleDegree)));
-                s.setGasPedal(Double.parseDouble(reader.get(VehicleCSV.GasPedal)));
-                s.setBreakPedal(Double.parseDouble(reader.get(VehicleCSV.BreakPedal)));
-                s.setClutchPedal(Double.parseDouble(reader.get(VehicleCSV.ClutchPedal)));
-                s.setSpeed(Double.parseDouble(reader.get(VehicleCSV.Speed)));
-                s.setRpm(Double.parseDouble(reader.get(VehicleCSV.Rpm)));
-                s.setAccelerationX(Double.parseDouble(reader.get(VehicleCSV.AccelerationX)));
-                s.setAccelerationY(Double.parseDouble(reader.get(VehicleCSV.AccelerationY)));
-                s.setAccelerationZ(Double.parseDouble(reader.get(VehicleCSV.AccelerationZ)));
                 s.setPositionX(Double.parseDouble(reader.get(VehicleCSV.PositionX)));
                 s.setPositionY(Double.parseDouble(reader.get(VehicleCSV.PositionY)));
                 s.setPositionZ(Double.parseDouble(reader.get(VehicleCSV.PositionZ)));
+                s.setSpeed(Double.parseDouble(reader.get(VehicleCSV.Speed)));
+                s.setAcceleration(Double.parseDouble(reader.get(VehicleCSV.Acceleration)));
+                s.setSteeringWheel(Double.parseDouble(reader.get(VehicleCSV.SteeringWheel)));
+                s.setGasPedal(Double.parseDouble(reader.get(VehicleCSV.GasPedal)));
+                s.setBreakPedal(Double.parseDouble(reader.get(VehicleCSV.BreakPedal)));
+                s.setClutchPedal(Double.parseDouble(reader.get(VehicleCSV.ClutchPedal)));
+                s.setRpm(Double.parseDouble(reader.get(VehicleCSV.Rpm)));
                 s.setLane(Double.parseDouble(reader.get(VehicleCSV.Lane)));
+                s.setSimulationTime(Double.parseDouble(reader.get(VehicleCSV.SimulationTime)));
+                s.setLaneLateralShift(Double.parseDouble(reader.get(VehicleCSV.LaneLateralShift)));
+                s.setGear(Double.parseDouble(reader.get(VehicleCSV.Gear)));
                 simulationList.add(s);
             }
             reader.close();
@@ -67,8 +66,8 @@ public class SimulationRead {
         String separator = System.getProperty("file.separator");
         String filePath = "."+separator+"csvFile"+separator+"use.csv";
 
-        SimulationRead simulationRead = new SimulationRead();
-        ArrayList<SimulatedVehicle> simulationList = simulationRead.getListFromCsvFile(filePath);
+        SimulationReadFile simulationReadFile = new SimulationReadFile();
+        ArrayList<SimulatedVehicle> simulationList = simulationReadFile.getListFromCsvFile(filePath);
         System.out.println(simulationList.size());
         long start=System.currentTimeMillis();
 

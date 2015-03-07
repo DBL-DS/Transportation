@@ -4,55 +4,67 @@ package data.structure;
  * Created by Hugh on 2015/2/14 0014.
  */
 public class SimulatedVehicle {
-    private double saveTime;
-    private double simulationTime;
-    private double handleDegree;
-    private double gasPedal;
-    private double breakPedal;
-    private double clutchPedal;
-    private double speed;
-    private double rpm;
-    private double accelerationX;
-    private double accelerationY;
-    private double accelerationZ;
     private double positionX;
     private double positionY;
     private double positionZ;
+    private double speed;
+    private double acceleration;
+    private double steeringWheel;
+    private double gasPedal;
+    private double breakPedal;
+    private double clutchPedal;
+    private double rpm;
     private double lane;
+    private double simulationTime;
+    private double laneLateralShift;
+    private double gear;
 
-    public double getLane() {
-        return lane;
+    public double getPositionX() {
+        return positionX;
     }
 
-    public void setLane(double lane) {
-        this.lane = lane;
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
     }
 
-    public SimulatedVehicle() {
+    public double getPositionY() {
+        return positionY;
     }
 
-    public double getSaveTime() {
-        return saveTime;
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
     }
 
-    public void setSaveTime(double saveTime) {
-        this.saveTime = saveTime;
+    public double getPositionZ() {
+        return positionZ;
     }
 
-    public double getSimulationTime() {
-        return simulationTime;
+    public void setPositionZ(double positionZ) {
+        this.positionZ = positionZ;
     }
 
-    public void setSimulationTime(double simulationTime) {
-        this.simulationTime = simulationTime;
+    public double getSpeed() {
+        return speed;
     }
 
-    public double getHandleDegree() {
-        return handleDegree;
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
-    public void setHandleDegree(double handleDegree) {
-        this.handleDegree = handleDegree;
+    public double getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public double getSteeringWheel() {
+        return steeringWheel;
+    }
+
+    public void setSteeringWheel(double steeringWheel) {
+        this.steeringWheel = steeringWheel;
     }
 
     public double getGasPedal() {
@@ -79,14 +91,6 @@ public class SimulatedVehicle {
         this.clutchPedal = clutchPedal;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
     public double getRpm() {
         return rpm;
     }
@@ -95,51 +99,35 @@ public class SimulatedVehicle {
         this.rpm = rpm;
     }
 
-    public double getAccelerationX() {
-        return accelerationX;
+    public double getLane() {
+        return lane;
     }
 
-    public void setAccelerationX(double accelerationX) {
-        this.accelerationX = accelerationX;
+    public void setLane(double lane) {
+        this.lane = lane;
     }
 
-    public double getAccelerationY() {
-        return accelerationY;
+    public double getSimulationTime() {
+        return simulationTime;
     }
 
-    public void setAccelerationY(double accelerationY) {
-        this.accelerationY = accelerationY;
+    public void setSimulationTime(double simulationTime) {
+        this.simulationTime = simulationTime;
     }
 
-    public double getAccelerationZ() {
-        return accelerationZ;
+    public double getLaneLateralShift() {
+        return laneLateralShift;
     }
 
-    public void setAccelerationZ(double accelerationZ) {
-        this.accelerationZ = accelerationZ;
+    public void setLaneLateralShift(double laneLateralShift) {
+        this.laneLateralShift = laneLateralShift;
     }
 
-    public double getPositionX() {
-        return positionX;
+    public double getGear() {
+        return gear;
     }
 
-    public void setPositionX(double positionX) {
-        this.positionX = positionX;
-    }
-
-    public double getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(double positionY) {
-        this.positionY = positionY;
-    }
-
-    public double getPositionZ() {
-        return positionZ;
-    }
-
-    public void setPositionZ(double positionZ) {
-        this.positionZ = positionZ;
+    public void setGear(double gear) {
+        this.gear = gear;
     }
 }

@@ -1,8 +1,7 @@
 package player;
 
-import data.receieve.SimulationRead;
+import data.receieve.SimulationReadFile;
 import data.structure.SimulatedVehicle;
-import ui.MainForm;
 
 import java.util.ArrayList;
 
@@ -16,10 +15,12 @@ public class Player {
     private SimulatedVehicle playingData;
     private int totalIndex;
     private int currentIndex;
-    private PlayNext playNext;
+    private PlayFile playFile;
     private Thread playerThread;
     private boolean dataUpdated;
     private boolean readyToPlay;
+    private ReceiveDataFromNetwork network;
+    private int port;
 
     //导入文件数据初始化方法
     public Player(String filePath) {
@@ -38,10 +39,12 @@ public class Player {
         dataUpdated = false;
         dataUnitTimeGap = 1000;
         readyToPlay = false;
+        totalIndex = 0;
         currentIndex = 0;
+        port = 6000;
     }
     private void readDataFromFile(String filePath){
-        SimulationRead reader = new SimulationRead();
+        SimulationReadFile reader = new SimulationReadFile();
         simulatedVehicles = reader.getListFromCsvFile(filePath);
         if (simulatedVehicles!=null){
             readyToPlay = true;
@@ -90,6 +93,10 @@ public class Player {
         return totalIndex;
     }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     public boolean isReadyToPlay() {
         return readyToPlay;
     }
@@ -102,21 +109,27 @@ public class Player {
     }
 
     public void play(){
-        if (playNext ==null){
-            playNext = new PlayNext(this);
-            playerThread = new Thread(playNext);
+        if (playFile ==null){
+            playFile = new PlayFile(this);
+            playerThread = new Thread(playFile);
             playerThread.start();
         }else {
-            playNext.setAskForWait(false);
-            playNext.awake();
+            playFile.setAskForWait(false);
+            playFile.awake();
         }
     }
     public void pause(){
-        playNext.setAskForWait(true);
+        playFile.setAskForWait(true);
     }
     public void over(){
-        playNext.setNotOver(false);
-        playNext = null;
+        if (playFile!=null){
+            playFile.setNotOver(false);
+            playFile = null;
+        }
+        if (network!=null){
+            network.setNotOver(false);
+            network = null;
+        }
         currentIndex = 0;
     }
     protected boolean playNextFrame(){
@@ -128,5 +141,17 @@ public class Player {
         }
         over();
         return false;
+    }
+
+    public void startRefreshDataFromNetwork(){
+        network = new ReceiveDataFromNetwork(this,port);
+        playerThread = new Thread(network);
+        playerThread.start();
+    }
+    protected void getNextData(SimulatedVehicle vehicle){
+        playingData = vehicle;
+        totalIndex += 1;
+        currentIndex += 1;
+        dataUpdated = true;
     }
 }

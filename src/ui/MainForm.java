@@ -9,6 +9,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Created by Hugh on 2015/2/14 0014.
@@ -54,6 +56,10 @@ public class MainForm {
     private JLabel totalTimeLabel;
     private JLabel currentTimeLabel;
     private JPanel statusPanel;
+    private JButton simulationPlayStartAndOverButton;
+    private JButton simulationNextGroupButton;
+    private JButton createNewFrameButton;
+    private JPanel viewControlPanel;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -69,6 +75,7 @@ public class MainForm {
     public MainForm() {
         initViewPanels();
         setTransformViewPanelButtonEvent();
+        setViewControlPanelEvent();
         setControlPanelEvent();
         setWindowResizeEvent();
         startListenPlayingDataThread();
@@ -155,7 +162,33 @@ public class MainForm {
             viewPanel.repaint();
         }
     }
-
+    private void setViewControlPanelEvent(){
+        createNewFrameButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e1) {
+                super.mouseClicked(e1);
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
+                JFrame frame = new JFrame();
+                frame.setContentPane(now);
+                frame.pack();
+                frame.setVisible(true);
+                //居中显示窗体
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                Dimension frameSize = frame.getSize();
+                frame.setLocation((screenSize.width-frameSize.width)/2,(screenSize.height-frameSize.height)/2);
+            }
+        });
+    }
     private void setControlPanelEvent(){
         filePathChooseButton.addActionListener(new ActionListener() {
             @Override
@@ -280,6 +313,28 @@ public class MainForm {
                 }
             }
         });
+
+        simulationSettingsButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                player = new Player();
+                SimulationSetting setting = new SimulationSetting(player);
+                setting.showDialog();
+            }
+        });
+
+        getDataFromSimulationButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (player==null){
+                    alertToLinkSimulationFirst();
+                }else {
+                    player.startRefreshDataFromNetwork();
+                }
+            }
+        });
     }
 
     private void setWindowResizeEvent(){
@@ -361,8 +416,12 @@ public class MainForm {
         int currentValue = Integer.valueOf(""+Math.round(max*player.getCurrentTime()/player.getTotalTime()));
         timeSlider.setValue(currentValue);
     }
-    public void alertToImportDataFirst(){
+    private void alertToImportDataFirst(){
         AlertDialog dialog = new AlertDialog("请先导入数据！");
+        dialog.showDialog();
+    }
+    private void alertToLinkSimulationFirst(){
+        AlertDialog dialog = new AlertDialog("请先配置模拟舱接口！");
         dialog.showDialog();
     }
     public void playIsOver(){

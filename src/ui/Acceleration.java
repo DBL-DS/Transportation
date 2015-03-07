@@ -23,7 +23,7 @@ public class Acceleration {
     public Acceleration()
     {
         accelerationPanel = new JPanel();
-        XYDataset xydataset = createDataset();
+        XYDataset xydataset = createDataSet();
         JFreeChart jfreechart = ChartFactory.createXYLineChart(
                 "speed", "time", "velocity", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
@@ -39,14 +39,14 @@ public class Acceleration {
         accelerationPanel.add(chartPanel);
     }
 
-    public XYDataset createDataset() {
+    public XYDataset createDataSet() {
         xyseries = new XYSeries("");
         XYSeriesCollection xyseriescollection = new XYSeriesCollection();
         xyseriescollection.addSeries(xyseries);
         return xyseriescollection;
     }
     public void receiveData(SimulatedVehicle simulatedVehicle){
-        xyseries.add(simulatedVehicle.getSimulationTime(),simulatedVehicle.getAccelerationX());
+        xyseries.add(simulatedVehicle.getSimulationTime(),simulatedVehicle.getAcceleration());
     }
     public JPanel getAccelerationPanel() {
         return accelerationPanel;

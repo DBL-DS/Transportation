@@ -29,9 +29,7 @@ public class BaseData {
             runningTimeTextField.setText(simulatedVehicle.getSimulationTime()/1000+"s");
         }
         laneTextField.setText(simulatedVehicle.getLane()+"");
-        acclerationTextField.setText("("+simulatedVehicle.getAccelerationX()+","
-                +simulatedVehicle.getAccelerationY()+","
-                +simulatedVehicle.getAccelerationZ()+") m/(s^2)");
+        acclerationTextField.setText(simulatedVehicle.getAcceleration()+" m/(s^2)");
         positionTextField.setText("("+simulatedVehicle.getPositionX()+","
                 +simulatedVehicle.getPositionY()+","
                 +simulatedVehicle.getPositionZ()+") m");
