@@ -78,27 +78,6 @@ public class Velocity {
     public void refreshSize(){
         chartPanel.setSize(velocityPanel.getSize());
         chartPanel.setLocation(0,0);
-        chartPanel.addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                chartPanel.setSize(velocityPanel.getSize());
-                chartPanel.setLocation(0,0);
-            }
 
-            @Override
-            public void componentMoved(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-
-            }
-        });
     }
 }
