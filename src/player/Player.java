@@ -242,11 +242,12 @@ public class Player {
         }
     }
     protected void getNextData(SimulatedVehicle vehicle){
-        playingData = vehicle;
-        totalIndex += 1;
-        currentIndex += 1;
-        playingList.add(playingData);
-        dataUpdated = true;
-
+        if (playingList.size()==0||(vehicle.getSimulationTime()!=playingList.get(playingList.size()-1).getSimulationTime())){
+            playingData = vehicle;
+            totalIndex += 1;
+            currentIndex += 1;
+            playingList.add(playingData);
+            dataUpdated = true;
+        }
     }
 }

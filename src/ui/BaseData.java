@@ -11,28 +11,33 @@ public class BaseData {
     private JPanel baseDataPanel;
     private JTextField velocityTextField;
     private JTextField runningTimeTextField;
-    private JTextField acclerationTextField;
+    private JTextField accelerationTextField;
     private JTextField laneTextField;
     private JTextField positionTextField;
     private JTextField totalDistanceTextField;
-    private JTextField distanceFromCenterTextfield;
+    private JTextField laneLateralShiftTextField;
 
     public JPanel getBaseDataPanel() {
         return baseDataPanel;
     }
 
     public void receiveData(SimulatedVehicle simulatedVehicle){
-        velocityTextField.setText(simulatedVehicle.getSpeed()+"km/h");
+        velocityTextField.setText(formatNum(simulatedVehicle.getSpeed())+"km/h");
         if (simulatedVehicle.getSimulationTime()<1000){
-            runningTimeTextField.setText(simulatedVehicle.getSimulationTime()+"ms");
+            runningTimeTextField.setText(formatNum(simulatedVehicle.getSimulationTime())+"ms");
         }else {
-            runningTimeTextField.setText(simulatedVehicle.getSimulationTime()/1000+"s");
+            runningTimeTextField.setText(formatNum(simulatedVehicle.getSimulationTime()/1000)+"s");
         }
-        laneTextField.setText(simulatedVehicle.getLane()+"");
-        acclerationTextField.setText(simulatedVehicle.getAcceleration()+" m/(s^2)");
-        positionTextField.setText("("+simulatedVehicle.getPositionX()+","
-                +simulatedVehicle.getPositionY()+","
-                +simulatedVehicle.getPositionZ()+") m");
+        laneTextField.setText(String.format("%.0f",simulatedVehicle.getLane()));
+        accelerationTextField.setText(formatNum(simulatedVehicle.getAcceleration()) + " m/(s^2)");
+        positionTextField.setText("("+formatNum(simulatedVehicle.getPositionX())+","
+                +formatNum(simulatedVehicle.getPositionY())+","
+                +formatNum(simulatedVehicle.getPositionZ())+") m");
+        laneLateralShiftTextField.setText(formatNum(simulatedVehicle.getLaneLateralShift()));
+    }
+
+    private String formatNum(double num){
+        return String.format("%.3f",num);
     }
 
     public static void main(String[] args) {

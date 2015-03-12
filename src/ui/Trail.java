@@ -12,7 +12,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by Hugh on 2015/2/16 0016.
@@ -24,23 +23,22 @@ public class Trail {
     public Trail()
     {
         trailPanel = new JPanel();
-        XYDataset xydataset = createDataset();
+        XYDataset xydataset = createDataSet();
         JFreeChart jfreechart = ChartFactory.createScatterPlot(
-                "", "", "", xydataset,
+                "Trail Curve", "X", "Y", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 
         XYPlot xyplot = (XYPlot) jfreechart.getPlot();
         NumberAxis numberaxis = (NumberAxis) xyplot.getRangeAxis();
         numberaxis.setAutoRangeIncludesZero(true);
         NumberAxis x=(NumberAxis)xyplot.getDomainAxis();
-        x.setLabel("");
         x.setAutoRange(true);
 
         chartPanel = new ChartPanel(jfreechart);
         trailPanel.add(chartPanel);
     }
 
-    public XYDataset createDataset() {
+    public XYDataset createDataSet() {
         xyseries = new XYSeries("");
         XYSeriesCollection xyseriescollection = new XYSeriesCollection();
         xyseriescollection.addSeries(xyseries);
