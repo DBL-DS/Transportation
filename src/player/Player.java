@@ -2,6 +2,7 @@ package player;
 
 import data.receieve.SimulationReadFile;
 import data.structure.SimulatedVehicle;
+import data.structure.VehicleHistory;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Player {
     private double speed;
     private double dataUnitTimeGap;
-    private ArrayList<ArrayList<SimulatedVehicle>> historyList;
+    private ArrayList<VehicleHistory> historyList;
     private ArrayList<SimulatedVehicle> playingList;
     private SimulatedVehicle playingData;
     private int totalIndex;
@@ -50,9 +51,9 @@ public class Player {
     private void addDataToHistoryList(){
         if (playingList!=null&&playingList.size()!=0){
             if (historyList==null){
-                historyList = new ArrayList<ArrayList<SimulatedVehicle>>();
+                historyList = new ArrayList<VehicleHistory>();
             }
-            historyList.add(playingList);
+            historyList.add(new VehicleHistory(playingList));
             readyToPlay = true;
         }
     }
@@ -62,6 +63,9 @@ public class Player {
     public SimulatedVehicle getPlayingData() {
         dataUpdated = false;
         return playingData;
+    }
+    public ArrayList<VehicleHistory> getHistoryList() {
+        return historyList;
     }
 
     //FileMode associated
@@ -220,6 +224,7 @@ public class Player {
         if (network!=null){
             playingList = new ArrayList<SimulatedVehicle>();
             network.setReceiving(true);
+            network.continuePlay();
             return true;
         }else {
             return false;
@@ -237,10 +242,12 @@ public class Player {
         }
     }
     protected void getNextData(SimulatedVehicle vehicle){
-        playingData = vehicle;
-        totalIndex += 1;
-        currentIndex += 1;
-        playingList.add(playingData);
-        dataUpdated = true;
+        if (playingList.size()==0||(vehicle.getSimulationTime()!=playingList.get(playingList.size()-1).getSimulationTime())){
+            playingData = vehicle;
+            totalIndex += 1;
+            currentIndex += 1;
+            playingList.add(playingData);
+            dataUpdated = true;
+        }
     }
 }

@@ -49,14 +49,13 @@ public class Velocity {
         velocityPanel = new JPanel();
         XYDataset xydataset = createDataset();
         JFreeChart jfreechart = ChartFactory.createXYLineChart(
-                "speed", "time", "velocity", xydataset,
+                "Speed Curve", "Time", "Speed", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 
         XYPlot xyplot = (XYPlot) jfreechart.getPlot();
         NumberAxis numberaxis = (NumberAxis) xyplot.getRangeAxis();
         numberaxis.setAutoRangeIncludesZero(true);
         NumberAxis x=(NumberAxis)xyplot.getDomainAxis();
-        x.setLabel("time");
         x.setAutoRange(true);
 
         chartPanel = new ChartPanel(jfreechart);

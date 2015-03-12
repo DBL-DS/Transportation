@@ -30,7 +30,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <hspacer id="f0b1d">
         <constraints>
@@ -56,7 +58,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <hspacer id="24c94">
         <constraints>
@@ -84,13 +88,15 @@
           <text value="加速度"/>
         </properties>
       </component>
-      <component id="9aafc" class="javax.swing.JTextField" binding="acclerationTextField">
+      <component id="9aafc" class="javax.swing.JTextField" binding="accelerationTextField">
         <constraints>
           <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="a0ab8" class="javax.swing.JTextField" binding="laneTextField">
         <constraints>
@@ -98,7 +104,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="6dab7" class="javax.swing.JLabel">
         <constraints>
@@ -114,7 +122,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="4c4bc" class="javax.swing.JLabel">
         <constraints>
@@ -130,7 +140,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="cb1c7" class="javax.swing.JLabel">
         <constraints>
@@ -140,13 +152,15 @@
           <text value="本车距中心线"/>
         </properties>
       </component>
-      <component id="b2b78" class="javax.swing.JTextField" binding="distanceFromCenterTextfield">
+      <component id="b2b78" class="javax.swing.JTextField" binding="laneLateralShiftTextField">
         <constraints>
           <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <vspacer id="dde90">
         <constraints>
