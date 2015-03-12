@@ -12,7 +12,7 @@ public class VissimControl {
     Net net;
 
     public VissimControl() {
-
+        initData();
     }
     private void initData(){
         vissim = new VISSIM();
@@ -20,6 +20,7 @@ public class VissimControl {
         simulation = vissim.getSimlation();
         count=0;
         net = vissim.getnet();
+
     }
     public void receiveData(SimulatedVehicle simulatedVehicle){
         simulation.RunSingle();
@@ -32,5 +33,12 @@ public class VissimControl {
         }
         count++;
 
+    }
+    public void passStart()
+    {
+        while (count<144)
+        {
+            simulation.RunSingle();
+        }
     }
 }

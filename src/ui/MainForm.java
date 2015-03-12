@@ -1,5 +1,6 @@
 package ui;
 
+import VISSIM.*;
 import data.structure.SimulatedVehicle;
 import player.Player;
 import player.PlayerSpeed;
@@ -63,6 +64,8 @@ public class MainForm {
     private JPanel fileControlPanel;
     private JButton testConnectionButton;
     private JButton endReceiveButton;
+    private JButton initVISSIMButton;
+    private JButton inputButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -74,6 +77,8 @@ public class MainForm {
     private Welcome welcome;
     private Player player;
     private ListenPlayingDataThread listenPlayingDataThread;
+    private VissimControl vissimControl;
+    private boolean vissimConnect;
 
     public MainForm() {
         initViewPanels();
@@ -81,8 +86,11 @@ public class MainForm {
         setViewControlPanelEvent();
         setFileReadingControlPanelEvent();
         setSimulationControlPanelEvent();
+        setVISSIMControlPanelEvent();
         startListenPlayingDataThread();
         initPlayer();
+
+
     }
 
     public JPanel getWrapPanel() {
@@ -101,8 +109,9 @@ public class MainForm {
         dashboard = new Dashboard();
         evaluation = new Evaluation();
         welcome = new Welcome();
-
+        vissimControl = new VissimControl();
         transformViewPanel(welcome.getWelcomePanel());
+        vissimConnect = false;
     }
     private void setTransformViewPanelButtonEvent(){
         baseDataButton.addMouseListener(new MouseAdapter() {
@@ -312,6 +321,7 @@ public class MainForm {
         });
 
     }
+
     private void setSimulationControlPanelEvent(){
         ActionListener listener = new ActionListener() {
             @Override
@@ -363,6 +373,24 @@ public class MainForm {
         endNetworkButton.addActionListener(listener);
         startReceiveButton.addActionListener(listener);
         endReceiveButton.addActionListener(listener);
+    }
+
+
+
+    private void setVISSIMControlPanelEvent()
+    {
+        initVISSIMButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vissimControl.passStart();
+            }
+        });
+        inputButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vissimConnect = true;
+            }
+        });
     }
     private void startListenPlayingDataThread(){
         listenPlayingDataThread = new ListenPlayingDataThread(this);
@@ -424,7 +452,9 @@ public class MainForm {
         acceleration.receiveData(simulatedVehicle);
         trail.receiveData(simulatedVehicle);
         lane.receiveData(simulatedVehicle);
-
+        if (vissimConnect&&vissimControl!=null){
+            vissimControl.receiveData(simulatedVehicle);
+        }
     }
     public void refreshStatusPanel(){
         if (player!=null){
