@@ -12,7 +12,7 @@ public class VissimControl {
     Net net;
 
     public VissimControl() {
-
+        initData();
     }
     private void initData(){
         vissim = new VISSIM();
