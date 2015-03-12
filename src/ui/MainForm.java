@@ -424,6 +424,7 @@ public class MainForm {
         acceleration.receiveData(simulatedVehicle);
         trail.receiveData(simulatedVehicle);
         lane.receiveData(simulatedVehicle);
+
     }
     public void refreshStatusPanel(){
         if (player!=null){
