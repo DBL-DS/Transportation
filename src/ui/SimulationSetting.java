@@ -26,21 +26,25 @@ public class SimulationSetting extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         setButtonEvent();
-        setIPLabel();
-
+        setIPLabelAndPortTextField();
     }
 
     private void onOK() {
 // add your code here
         int port = Integer.valueOf(PortTextField.getText());
-//        AlertDialog alert;
-//        if (isPortOccupied(port)){
-//            alert = new AlertDialog("端口被占用！");
-//        } else {
-//            alert = new AlertDialog("端口设置成功！");
+        if (!(port>0&&port<65536)){
+            new AlertDialog("输入数据错误！").showDialog();
+            return;
+        }
+
+        AlertDialog alert;
+        if (isPortOccupied(port)){
+            alert = new AlertDialog("端口被占用！");
+        } else {
+            alert = new AlertDialog("端口设置成功！");
             player.setPort(port);
-//        }
-//        alert.showDialog();
+        }
+        alert.showDialog();
     }
 
     private void onCancel() {
@@ -48,7 +52,7 @@ public class SimulationSetting extends JDialog {
         dispose();
     }
 
-    private void setIPLabel() {
+    private void setIPLabelAndPortTextField() {
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
@@ -57,6 +61,7 @@ public class SimulationSetting extends JDialog {
         }
         String ip = address.getHostAddress();
         IPLabel.setText(ip);
+        PortTextField.setText(""+player.getPort());
     }
 
     private void setButtonEvent(){

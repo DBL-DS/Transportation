@@ -18,6 +18,19 @@ public class SimulatedVehicle {
     private double simulationTime;
     private double laneLateralShift;
     private double gear;
+    private long lastSaveTime;
+
+    public SimulatedVehicle() {
+        lastSaveTime = 0;
+    }
+
+    public long getLastSaveTime() {
+        return lastSaveTime;
+    }
+
+    public void setLastSaveTime(long lastSaveTime) {
+        this.lastSaveTime = lastSaveTime;
+    }
 
     public double getPositionX() {
         return positionX;

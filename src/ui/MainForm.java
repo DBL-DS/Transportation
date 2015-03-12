@@ -9,8 +9,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * Created by Hugh on 2015/2/14 0014.
@@ -30,8 +28,8 @@ public class MainForm {
     private JPanel timeControlPanel;
     private JPanel viewPanel;
     private JButton dashboardButton;
-    private JPanel getDataPanel;
-    private JButton getDataFromSimulationButton;
+    private JPanel simulationControlPanel;
+    private JButton startNetworkButton;
     private JButton simulationSettingsButton;
     private JButton importDataButton;
     private JTextField filePathTextField;
@@ -47,7 +45,6 @@ public class MainForm {
     private JButton playSpeed8;
     private JLabel filePathLabel;
     private JButton baseDataButton;
-    private JLabel separatorLabel;
     private JTextField dataUnitTimeGapTextField;
     private JButton setDataUnitTimeGapButton;
     private JLabel dataUnitTimeGapLabel;
@@ -56,10 +53,16 @@ public class MainForm {
     private JLabel totalTimeLabel;
     private JLabel currentTimeLabel;
     private JPanel statusPanel;
-    private JButton simulationPlayStartAndOverButton;
-    private JButton simulationNextGroupButton;
+    private JButton endNetworkButton;
+    private JButton startReceiveButton;
     private JButton createNewFrameButton;
     private JPanel viewControlPanel;
+    private JTabbedPane tabbedPane1;
+    private JButton startSimulationProjectButton;
+    private JButton endSimulationProjectButton;
+    private JPanel fileControlPanel;
+    private JButton testConnectionButton;
+    private JButton endReceiveButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -76,9 +79,10 @@ public class MainForm {
         initViewPanels();
         setTransformViewPanelButtonEvent();
         setViewControlPanelEvent();
-        setControlPanelEvent();
-        setWindowResizeEvent();
+        setFileReadingControlPanelEvent();
+        setSimulationControlPanelEvent();
         startListenPlayingDataThread();
+        initPlayer();
     }
 
     public JPanel getWrapPanel() {
@@ -152,16 +156,6 @@ public class MainForm {
         });
 
     }
-    private void transformViewPanel(JPanel panel){
-        if (now==null || !now.equals(panel)){
-            now = panel;
-            viewPanel.removeAll();
-            viewPanel.setLayout(new GridLayout());
-            viewPanel.add(now);
-            viewPanel.validate();
-            viewPanel.repaint();
-        }
-    }
     private void setViewControlPanelEvent(){
         createNewFrameButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -189,7 +183,7 @@ public class MainForm {
             }
         });
     }
-    private void setControlPanelEvent(){
+    private void setFileReadingControlPanelEvent(){
         filePathChooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -209,7 +203,7 @@ public class MainForm {
                 resetPlayAndPauseButton();
                 resetTimeSlider();
                 String filePath = filePathTextField.getText();
-                player = new Player(filePath);
+                player.readDataFromFile(filePath);
                 if (player.isReadyToPlay()) {
                     AlertDialog dialog = new AlertDialog("读取数据成功！");
                     dialog.showDialog();
@@ -232,8 +226,11 @@ public class MainForm {
                             if (now == welcome.getWelcomePanel()){
                                 transformViewPanel(base.getBaseDataPanel());
                             }
-                            player.play();
-                            playAndPauseButton.setText("暂停");
+                            if (player.play()){
+                                playAndPauseButton.setText("暂停");
+                            }else {
+                                new AlertDialog("播放失败，请确认已经结束了模拟舱任务").showDialog();
+                            }
                         }
                     }else {
                         player.pause();
@@ -314,36 +311,109 @@ public class MainForm {
             }
         });
 
-        simulationSettingsButton.addMouseListener(new MouseAdapter() {
+    }
+    private void setSimulationControlPanelEvent(){
+        ActionListener listener = new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                player = new Player();
-                SimulationSetting setting = new SimulationSetting(player);
-                setting.showDialog();
-            }
-        });
-
-        getDataFromSimulationButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (player==null){
-                    alertToLinkSimulationFirst();
-                }else {
-                    player.startRefreshDataFromNetwork();
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource()==startSimulationProjectButton){
+                    player.setMode(Player.SimulationMode);
+                    enableAndDisableButton(startSimulationProjectButton);
+                }else if (e.getSource()==endSimulationProjectButton){
+                    player.endNetworkThread();
+                    player.setMode(Player.FileMode);
+                    enableAndDisableButton(endSimulationProjectButton);
+                }else if (e.getSource()==simulationSettingsButton){
+                    SimulationSetting setting = new SimulationSetting(player);
+                    setting.showDialog();
+                }else if (e.getSource()==testConnectionButton){
+                    AlertDialog alertDialog;
+                    if (player.testConnection()){
+                        alertDialog = new AlertDialog("数据接入成功！");
+                    }else {
+                        alertDialog = new AlertDialog("未检测到数据接入！");
+                    }
+                    alertDialog.showDialog();
+                }else if (e.getSource()==endSimulationProjectButton){
+                    enableAndDisableButton(endSimulationProjectButton);
+                }else if (e.getSource()==startNetworkButton){
+                    if (player.startNetworkThread()){
+                        enableAndDisableButton(startNetworkButton);
+                    }
+                }else if (e.getSource()==endNetworkButton){
+                    player.endNetworkThread();
+                    enableAndDisableButton(endNetworkButton);
+                }else if (e.getSource()==startReceiveButton){
+                    if (player.startReceiveData()){
+                        enableAndDisableButton(startReceiveButton);
+                    } else {
+                        new AlertDialog("尝试接收失败，可能原因：\n\t1.正在播放文件\n\t2.网络异常").showDialog();
+                    }
+                }else if (e.getSource()==endReceiveButton){
+                    player.endReceiveData();
+                    enableAndDisableButton(endReceiveButton);
                 }
             }
-        });
+        };
+        startSimulationProjectButton.addActionListener(listener);
+        endSimulationProjectButton.addActionListener(listener);
+        simulationSettingsButton.addActionListener(listener);
+        testConnectionButton.addActionListener(listener);
+        startNetworkButton.addActionListener(listener);
+        endNetworkButton.addActionListener(listener);
+        startReceiveButton.addActionListener(listener);
+        endReceiveButton.addActionListener(listener);
     }
-
-    private void setWindowResizeEvent(){
-
-    }
-
     private void startListenPlayingDataThread(){
         listenPlayingDataThread = new ListenPlayingDataThread(this);
         listenPlayingDataThread.start();
+    }
+    private void initPlayer(){
+        player = new Player();
+    }
+
+    private void enableAndDisableButton(JButton thisButton){
+        if (thisButton==startSimulationProjectButton){
+            thisButton.setEnabled(false);
+            endSimulationProjectButton.setEnabled(true);
+            simulationSettingsButton.setEnabled(true);
+            testConnectionButton.setEnabled(true);
+            startNetworkButton.setEnabled(true);
+        }else if(thisButton==endSimulationProjectButton){
+            thisButton.setEnabled(false);
+            startSimulationProjectButton.setEnabled(true);
+            simulationSettingsButton.setEnabled(false);
+            testConnectionButton.setEnabled(false);
+            startNetworkButton.setEnabled(false);
+            endNetworkButton.setEnabled(false);
+            startReceiveButton.setEnabled(false);
+            endReceiveButton.setEnabled(false);
+        }else if (thisButton==startNetworkButton){
+            thisButton.setEnabled(false);
+            endNetworkButton.setEnabled(true);
+            startReceiveButton.setEnabled(true);
+        }else if (thisButton==endNetworkButton){
+            thisButton.setEnabled(false);
+            startNetworkButton.setEnabled(true);
+            startReceiveButton.setEnabled(false);
+            endReceiveButton.setEnabled(false);
+        }else if (thisButton==startReceiveButton){
+            thisButton.setEnabled(false);
+            endReceiveButton.setEnabled(true);
+        }else if (thisButton==endReceiveButton){
+            thisButton.setEnabled(false);
+            startReceiveButton.setEnabled(true);
+        }
+    }
+    private void transformViewPanel(JPanel panel){
+        if (now==null || !now.equals(panel)){
+            now = panel;
+            viewPanel.removeAll();
+            viewPanel.setLayout(new GridLayout());
+            viewPanel.add(now);
+            viewPanel.validate();
+            viewPanel.repaint();
+        }
     }
     protected void setUI(SimulatedVehicle simulatedVehicle){
         refreshStatusPanel();

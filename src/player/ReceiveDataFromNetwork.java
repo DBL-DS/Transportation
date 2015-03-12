@@ -10,22 +10,32 @@ public class ReceiveDataFromNetwork implements Runnable {
     private SimulationUDP simulationUDP;
     private boolean isNotOver;
     private Player player;
+    private boolean isReceiving;
 
     public ReceiveDataFromNetwork(Player player,int port) {
         simulationUDP = new SimulationUDP(port);
         isNotOver = true;
         this.player = player;
     }
+    public void close(){
+        simulationUDP.close();
+    }
 
     public void setNotOver(boolean isNotOver) {
         this.isNotOver = isNotOver;
     }
 
+    public void setReceiving(boolean isReceiving) {
+        this.isReceiving = isReceiving;
+    }
+
     @Override
     public void run() {
         while (isNotOver){
-            SimulatedVehicle vehicle = simulationUDP.getData();
-            player.getNextData(vehicle);
+            if (isReceiving){
+                SimulatedVehicle vehicle = simulationUDP.getData();
+                player.getNextData(vehicle);
+            }
         }
     }
 }

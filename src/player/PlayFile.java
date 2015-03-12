@@ -7,19 +7,25 @@ public class PlayFile implements Runnable {
     private Player player;
     private boolean isNotOver;
     private boolean askForWait;
+    private boolean isPlaying;
 
     public PlayFile(Player player) {
         this.player = player;
         this.isNotOver = true;
+        this.isPlaying = true;
         this.askForWait = false;
     }
 
     protected void setNotOver(boolean isNotOver) {
         this.isNotOver = isNotOver;
     }
-
     protected void setAskForWait(boolean askForWait) {
         this.askForWait = askForWait;
+        isPlaying = false;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
     }
 
     protected synchronized void pause(){

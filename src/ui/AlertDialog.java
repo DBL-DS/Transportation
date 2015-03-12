@@ -23,6 +23,9 @@ public class AlertDialog extends JDialog {
         alertTextTextField.setText(alertText);
     }
 
+    public void setAlertText(String text){
+        alertTextTextField.setText(text);
+    }
     private void onOK() {
 // add your code here
         this.setVisible(false);

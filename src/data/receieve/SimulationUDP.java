@@ -42,11 +42,15 @@ public class SimulationUDP {
         try {
             datagramSocket.receive(packet);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("No received data, force to close!");
             return null;
         }
         buffer = packet.getData();
         return byteToSimulatedVehicle(buffer);
+    }
+    public void close(){
+        datagramSocket.close();
     }
 
     private SimulatedVehicle byteToSimulatedVehicle(byte[] buffer){
