@@ -15,6 +15,7 @@ public class ReceiveDataFromNetwork implements Runnable {
     public ReceiveDataFromNetwork(Player player,int port) {
         simulationUDP = new SimulationUDP(port);
         isNotOver = true;
+        isReceiving = false;
         this.player = player;
     }
     public void close(){
@@ -28,6 +29,16 @@ public class ReceiveDataFromNetwork implements Runnable {
     public void setReceiving(boolean isReceiving) {
         this.isReceiving = isReceiving;
     }
+    public synchronized void pause(){
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public synchronized void continuePlay(){
+        notifyAll();
+    }
 
     @Override
     public void run() {
@@ -35,6 +46,8 @@ public class ReceiveDataFromNetwork implements Runnable {
             if (isReceiving){
                 SimulatedVehicle vehicle = simulationUDP.getData();
                 player.getNextData(vehicle);
+            }else {
+                pause();
             }
         }
     }
