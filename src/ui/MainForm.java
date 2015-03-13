@@ -66,6 +66,7 @@ public class MainForm {
     private JButton endReceiveButton;
     private JButton initVISSIMButton;
     private JButton inputButton;
+    private JButton startVISSIMButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -109,7 +110,6 @@ public class MainForm {
         dashboard = new Dashboard();
         evaluation = new Evaluation();
         welcome = new Welcome();
-        vissimControl = new VissimControl();
         transformViewPanel(welcome.getWelcomePanel());
         vissimConnect = false;
     }
@@ -379,9 +379,18 @@ public class MainForm {
 
     private void setVISSIMControlPanelEvent()
     {
-        initVISSIMButton.addActionListener(new ActionListener() {
+        startVISSIMButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (vissimControl == null){
+                    vissimControl = new VissimControl();
+                }
+            }
+        });
+        initVISSIMButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 vissimControl.passStart();
             }
         });
@@ -452,7 +461,7 @@ public class MainForm {
         acceleration.receiveData(simulatedVehicle);
         trail.receiveData(simulatedVehicle);
         lane.receiveData(simulatedVehicle);
-        if (vissimConnect&&vissimControl!=null){
+        if (vissimConnect){
             vissimControl.receiveData(simulatedVehicle);
         }
     }
