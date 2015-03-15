@@ -30,5 +30,9 @@ public class VISSIM {
 		out.setNet(vissim.invokeGetComponent("Net"));
 		return out;
 	}
+    public void exit()
+    {
+        vissim.safeRelease();
+    }
 
 }

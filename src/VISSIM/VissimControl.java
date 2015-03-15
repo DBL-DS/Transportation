@@ -42,14 +42,13 @@ public class VissimControl {
         this.simulatedVehicle = vehicle;
     }
     public void refresh(){
-        simulation.RunSingle();
-        if(count >= 114)
-        {
-            Vehicle vehicle = net.getVehicle(1);
-            if (simulatedVehicle!=null){
-                vehicle.setSpeed(simulatedVehicle.getSpeed());
-            }
+
+        Vehicle vehicle = net.getVehicle(1);
+        if (simulatedVehicle!=null){
+            vehicle.setSpeed(simulatedVehicle.getSpeed());
         }
+
+        simulation.RunSingle();
         count++;
     }
     public void passStart()
@@ -59,8 +58,6 @@ public class VissimControl {
             simulation.RunSingle();
             count++;
         }
-        while (true){
-            refresh();
-        }
+
     }
 }

@@ -398,6 +398,7 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vissimConnect = true;
+                vissimControl.startRefreshThread();
             }
         });
     }
