@@ -13,9 +13,17 @@ public class VissimControl {
     private Net net;
     private SimulatedVehicle simulatedVehicle;
     private Player player;
+    private VissimRefresh vissimRefresh;
+    private Thread refreshThread;
 
     public VissimControl() {
         initData();
+    }
+
+    public void startRefreshThread() {
+       vissimRefresh = new VissimRefresh(this);
+        refreshThread = new Thread(vissimRefresh);
+        refreshThread.start();
     }
 
     public int getCount() {
@@ -24,12 +32,12 @@ public class VissimControl {
 
     private void initData(){
         vissim = new VISSIM();
-        vissim.loadpath("D:\\Software_Document\\Java\\3-4.inpx");
+        vissim.loadpath("I:\\迅雷下载\\VISSIM510\\3-4.inpx");
         simulation = vissim.getSimlation();
         count=0;
         net = vissim.getnet();
-    }
 
+    }
     public void receiveData(SimulatedVehicle vehicle){
         this.simulatedVehicle = vehicle;
     }
@@ -43,12 +51,15 @@ public class VissimControl {
         simulation.RunSingle();
         count++;
     }
-    public void initVissim()
+    public void passStart()
     {
         while (count<114)
         {
             simulation.RunSingle();
             count++;
+        }
+        while (true){
+            refresh();
         }
     }
 }
