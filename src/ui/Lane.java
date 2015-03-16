@@ -1,6 +1,6 @@
 package ui;
 
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

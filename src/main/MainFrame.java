@@ -13,12 +13,11 @@ public class MainFrame {
 
     public MainFrame() {
         initFrame();
-        //居中显示窗体
     }
 
     private void initFrame(){
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

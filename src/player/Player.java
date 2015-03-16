@@ -1,8 +1,8 @@
 package player;
 
-import data.receieve.SimulationReadFile;
-import data.structure.SimulatedVehicle;
-import data.structure.VehicleHistory;
+import data.vehicle.receieve.SimulationReadFile;
+import data.vehicle.structure.SimulatedVehicle;
+import data.vehicle.structure.VehicleHistory;
 
 import java.util.ArrayList;
 

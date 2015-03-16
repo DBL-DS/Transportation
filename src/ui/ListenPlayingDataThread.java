@@ -1,6 +1,6 @@
 package ui;
 
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 import player.Player;
 
 /**

@@ -1,7 +1,7 @@
 package player;
 
-import data.receieve.SimulationUDP;
-import data.structure.SimulatedVehicle;
+import data.vehicle.receieve.SimulationUDP;
+import data.vehicle.structure.SimulatedVehicle;
 
 /**
  * Created by Hugh on 2015/3/1 0001.
@@ -44,8 +44,10 @@ public class ReceiveDataFromNetwork implements Runnable {
     public void run() {
         while (isNotOver){
             if (isReceiving){
-                SimulatedVehicle vehicle = simulationUDP.getData();
-                player.getNextData(vehicle);
+                if (player!=null){
+                    SimulatedVehicle vehicle = simulationUDP.getData();
+                    player.getNextData(vehicle);
+                }
             }else {
                 pause();
             }

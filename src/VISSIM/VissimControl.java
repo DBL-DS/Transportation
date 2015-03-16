@@ -1,6 +1,6 @@
 package VISSIM;
 
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 import player.Player;
 
 /**
@@ -42,7 +42,6 @@ public class VissimControl {
         this.simulatedVehicle = vehicle;
     }
     public void refresh(){
-
         Vehicle vehicle = net.getVehicle(1);
         if (simulatedVehicle!=null){
             vehicle.setSpeed(simulatedVehicle.getSpeed());
@@ -51,7 +50,7 @@ public class VissimControl {
         simulation.RunSingle();
         count++;
     }
-    public void passStart()
+    public void initVissim()
     {
         while (count<114)
         {
@@ -61,5 +60,8 @@ public class VissimControl {
         while (true){
             refresh();
         }
+    }
+    public void close(){
+        vissim.exit();
     }
 }

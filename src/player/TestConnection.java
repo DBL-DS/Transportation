@@ -1,6 +1,6 @@
 package player;
 
-import data.receieve.SimulationUDP;
+import data.vehicle.receieve.SimulationUDP;
 
 /**
  * Created by Hugh on 2015/3/10 0010.

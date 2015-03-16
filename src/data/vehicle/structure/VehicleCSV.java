@@ -1,4 +1,4 @@
-package data.structure;
+package data.vehicle.structure;
 
 /**
  * Created by Hugh on 2015/2/14 0014.

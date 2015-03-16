@@ -2,7 +2,7 @@ package ui;
 
 import javax.swing.*;
 
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;

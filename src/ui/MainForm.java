@@ -1,7 +1,7 @@
 package ui;
 
 import VISSIM.*;
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 import player.Player;
 import player.PlayerSpeed;
 
@@ -64,10 +64,10 @@ public class MainForm {
     private JButton testConnectionButton;
     private JButton endReceiveButton;
     private JButton initVISSIMButton;
-    private JButton inputButton;
+    private JButton inputStartButton;
     private JButton startVISSIMButton;
-    private JButton 关闭VISSIMButton;
-    private JButton button1;
+    private JButton closeVISSIMButton;
+    private JButton inputStopButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -373,17 +373,34 @@ public class MainForm {
                 }
             }
         });
+        closeVISSIMButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (vissimControl != null){
+                    vissimControl.close();
+                    vissimControl = null;
+                }
+            }
+        });
         initVISSIMButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                vissimControl.passStart();
+                vissimControl.initVissim();
             }
         });
-        inputButton.addActionListener(new ActionListener() {
+        inputStartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vissimConnect = true;
+                //TODO
+                vissimControl.startRefreshThread();
+            }
+        });
+        inputStopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vissimConnect = false;
             }
         });
     }

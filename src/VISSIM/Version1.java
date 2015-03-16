@@ -1,11 +1,6 @@
 package VISSIM;
 
-import VISSIM.Net;
-import VISSIM.Simulation;
-import VISSIM.VISSIM;
-import VISSIM.Vehicle;
-import com.jacob.com.Variant;
-import data.structure.SimulatedVehicle;
+import data.vehicle.structure.SimulatedVehicle;
 
 
 public class Version1 {

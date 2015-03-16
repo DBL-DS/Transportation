@@ -7,6 +7,7 @@
     </constraints>
     <properties>
       <alignmentX value="0.5"/>
+      <background color="-1"/>
       <minimumSize width="1000" height="600"/>
       <preferredSize width="1000" height="600"/>
     </properties>
@@ -17,7 +18,9 @@
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-1"/>
+        </properties>
         <border type="line" title="Control" title-position="2">
           <color color="-16777216"/>
         </border>
@@ -34,7 +37,9 @@
                 <constraints>
                   <tabbedpane title="读取文件"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <grid id="a5bfa" binding="fileControlPanel" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -42,7 +47,9 @@
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <grid id="a7c6a" binding="timeControlPanel" layout-manager="GridLayoutManager" row-count="2" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -50,7 +57,9 @@
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <background color="-1"/>
+                        </properties>
                         <border type="none"/>
                         <children>
                           <component id="68f6a" class="javax.swing.JSlider" binding="timeSlider">
@@ -210,7 +219,9 @@
                 <constraints>
                   <tabbedpane title="模拟舱实时"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <grid id="8bcba" binding="simulationControlPanel" layout-manager="GridLayoutManager" row-count="8" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -218,7 +229,9 @@
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="4fefa" class="javax.swing.JButton" binding="startSimulationProjectButton">
@@ -349,7 +362,9 @@
                 <constraints>
                   <tabbedpane title="VISSIM"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="2935" class="javax.swing.JButton" binding="startVISSIMButton">
@@ -366,7 +381,7 @@
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
-                  <component id="3335e" class="javax.swing.JButton" binding="关闭VISSIMButton" default-binding="true">
+                  <component id="3335e" class="javax.swing.JButton" binding="closeVISSIMButton">
                     <constraints>
                       <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -384,7 +399,7 @@
                       <text value="初始化VISSIM"/>
                     </properties>
                   </component>
-                  <component id="9bea2" class="javax.swing.JButton" binding="inputButton">
+                  <component id="9bea2" class="javax.swing.JButton" binding="inputStartButton">
                     <constraints>
                       <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -393,13 +408,13 @@
                       <text value="传入数据"/>
                     </properties>
                   </component>
-                  <component id="fc459" class="javax.swing.JButton" binding="button1" default-binding="true">
+                  <component id="fc459" class="javax.swing.JButton" binding="inputStopButton">
                     <constraints>
                       <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <margin top="2" left="20" bottom="2" right="20"/>
-                      <text value="Button"/>
+                      <text value="停止传入"/>
                     </properties>
                   </component>
                   <hspacer id="d2ad8">
@@ -441,7 +456,9 @@
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="2e342" class="javax.swing.JLabel">
@@ -548,7 +565,9 @@
         <constraints>
           <grid row="1" column="2" row-span="6" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-1"/>
+        </properties>
         <border type="line">
           <color color="-4473925"/>
         </border>
@@ -564,7 +583,9 @@
         <constraints>
           <grid row="2" column="1" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-1"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="3a174" class="javax.swing.JButton" binding="trailButton">

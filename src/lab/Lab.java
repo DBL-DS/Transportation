@@ -1,10 +1,6 @@
 package lab;
 
-import data.structure.SimulatedVehicle;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import data.vehicle.structure.SimulatedVehicle;
 
 /**
  * Created by Hugh on 2015/2/23 0023.

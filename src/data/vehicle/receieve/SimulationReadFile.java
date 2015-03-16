@@ -1,8 +1,8 @@
-package data.receieve;
+package data.vehicle.receieve;
 
 import com.csvreader.CsvReader;
-import data.structure.SimulatedVehicle;
-import data.structure.VehicleCSV;
+import data.vehicle.structure.SimulatedVehicle;
+import data.vehicle.structure.VehicleCSV;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

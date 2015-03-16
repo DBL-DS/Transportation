@@ -1,7 +1,7 @@
-package data.receieve;
+package data.vehicle.receieve;
 
-import data.structure.SimulatedVehicle;
-import data.structure.VehicleUDP;
+import data.vehicle.structure.SimulatedVehicle;
+import data.vehicle.structure.VehicleUDP;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
