@@ -2,6 +2,7 @@ package VISSIM;
 
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
 
 public class Vehicle {
 	private ActiveXComponent Vehicles;
@@ -23,5 +24,13 @@ public class Vehicle {
 		Dispatch.invoke(Vehicle, "AttValue", Dispatch.Put, new
 				 Object[]{"Speed",speed}, new int[1]);
 	}
+    public void MoveToPosition(int link,int  lane,double position)
+    {
+        Variant q = new Variant(link);
+        Variant w = new Variant(lane);
+        Variant e = new Variant(position);
+        Vehicle.invoke("MoveToLinkPosition",q,w,e);
+
+    }
 
 }

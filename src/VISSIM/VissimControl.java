@@ -34,18 +34,14 @@ public class VissimControl {
         this.simulatedVehicle = vehicle;
     }
     public void refresh(){
+
+        Vehicle vehicle = net.getVehicle(1);
+        if (simulatedVehicle!=null){
+            vehicle.setSpeed(simulatedVehicle.getSpeed());
+            System.out.println(simulatedVehicle.getSpeed());
+        }
         simulation.RunSingle();
-//        if(count >= 114)
-//        {
-            Vehicle vehicle = net.getVehicle(1);
-//            if (simulatedVehicle!=null){
-//                vehicle.setSpeed(simulatedVehicle.getSpeed());
-                vehicle.setSpeed(10);
-//            }
-//        }
-//        count++;
-//        if (simulatedVehicle!=null)
-//            System.out.println(String.format("%.3f",simulatedVehicle.getSimulationTime()));
+        count++;
     }
     public void initVissim()
     {
