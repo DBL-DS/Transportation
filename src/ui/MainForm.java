@@ -67,6 +67,9 @@ public class MainForm {
     private JButton initVISSIMButton;
     private JButton inputButton;
     private JButton startVISSIMButton;
+    private JButton 关闭VISSIMButton;
+    private JButton 开始VISSIM任务Button;
+    private JButton 结束VISSIM任务Button;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -391,13 +394,14 @@ public class MainForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                vissimControl.passStart();
+                vissimControl.initVissim();
             }
         });
         inputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vissimConnect = true;
+                vissimControl.startRefreshThread();
             }
         });
     }
@@ -544,7 +548,6 @@ public class MainForm {
     public void resetTimeSlider(){
         timeSlider.setValue(0);
     }
-
 
     public static void main(String[] args) {
         try {

@@ -13,17 +13,9 @@ public class VissimControl {
     private Net net;
     private SimulatedVehicle simulatedVehicle;
     private Player player;
-    private VissimRefresh vissimRefresh;
-    private Thread refreshThread;
 
     public VissimControl() {
         initData();
-    }
-
-    public void startRefreshThread() {
-       vissimRefresh = new VissimRefresh(this);
-        refreshThread = new Thread(vissimRefresh);
-        refreshThread.start();
     }
 
     public int getCount() {
@@ -32,35 +24,35 @@ public class VissimControl {
 
     private void initData(){
         vissim = new VISSIM();
-        vissim.loadpath("I:\\迅雷下载\\VISSIM510\\3-4.inpx");
+        vissim.loadpath("D:\\Software_Document\\Java\\3-4.inpx");
         simulation = vissim.getSimlation();
         count=0;
         net = vissim.getnet();
-
     }
+
     public void receiveData(SimulatedVehicle vehicle){
         this.simulatedVehicle = vehicle;
     }
     public void refresh(){
         simulation.RunSingle();
-        if(count >= 114)
-        {
+//        if(count >= 114)
+//        {
             Vehicle vehicle = net.getVehicle(1);
-            if (simulatedVehicle!=null){
-                vehicle.setSpeed(simulatedVehicle.getSpeed());
-            }
-        }
-        count++;
+//            if (simulatedVehicle!=null){
+//                vehicle.setSpeed(simulatedVehicle.getSpeed());
+                vehicle.setSpeed(10);
+//            }
+//        }
+//        count++;
+//        if (simulatedVehicle!=null)
+//            System.out.println(String.format("%.3f",simulatedVehicle.getSimulationTime()));
     }
-    public void passStart()
+    public void initVissim()
     {
         while (count<114)
         {
             simulation.RunSingle();
             count++;
-        }
-        while (true){
-            refresh();
         }
     }
 }
