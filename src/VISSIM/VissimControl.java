@@ -42,12 +42,11 @@ public class VissimControl {
         this.simulatedVehicle = vehicle;
     }
     public void refresh(){
-
         Vehicle vehicle = net.getVehicle(1);
         if (simulatedVehicle!=null){
             vehicle.setSpeed(simulatedVehicle.getSpeed());
+            System.out.println(simulatedVehicle.getSpeed());
         }
-
         simulation.RunSingle();
         count++;
     }

@@ -7,7 +7,7 @@ public class VISSIM {
 	private ActiveXComponent vissim ;
 	public VISSIM()
 	{
-		ComThread.InitSTA();
+		ComThread.InitMTA();
 		vissim = new ActiveXComponent("VISSIM.Vissim.700");
 	}
 	
