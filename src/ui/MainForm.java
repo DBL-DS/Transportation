@@ -22,7 +22,7 @@ public class MainForm {
     private JSlider timeSlider;
     private JPanel viewChoicePanel;
     private JButton trailButton;
-    private JButton velocityButton;
+    private JButton speedButton;
     private JButton laneButton;
     private JButton accelerationButton;
     private JButton evaluationButton;
@@ -57,7 +57,6 @@ public class MainForm {
     private JButton endNetworkButton;
     private JButton startReceiveButton;
     private JButton createNewFrameButton;
-    private JPanel viewControlPanel;
     private JTabbedPane tabbedPane1;
     private JButton startSimulationProjectButton;
     private JButton endSimulationProjectButton;
@@ -67,10 +66,12 @@ public class MainForm {
     private JButton initVISSIMButton;
     private JButton inputButton;
     private JButton startVISSIMButton;
+    private JButton 关闭VISSIMButton;
+    private JButton button1;
     private BaseData base;
     private Trail trail;
     private Lane lane;
-    private Velocity velocity;
+    private Speed speed;
     private Acceleration acceleration;
     private Dashboard dashboard;
     private Evaluation evaluation;
@@ -84,14 +85,12 @@ public class MainForm {
     public MainForm() {
         initViewPanels();
         setTransformViewPanelButtonEvent();
-        setViewControlPanelEvent();
         setFileReadingControlPanelEvent();
         setSimulationControlPanelEvent();
         setVISSIMControlPanelEvent();
+        setWindowResizeEvent();
         startListenPlayingDataThread();
         initPlayer();
-
-
     }
 
     public JPanel getWrapPanel() {
@@ -105,7 +104,7 @@ public class MainForm {
         base = new BaseData();
         trail = new Trail();
         lane = new Lane();
-        velocity = new Velocity();
+        speed = new Speed();
         acceleration = new Acceleration();
         dashboard = new Dashboard();
         evaluation = new Evaluation();
@@ -126,6 +125,7 @@ public class MainForm {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 transformViewPanel(trail.getTrailPanel());
+                trail.refreshSize(viewPanel.getSize());
             }
         });
         laneButton.addMouseListener(new MouseAdapter() {
@@ -133,13 +133,15 @@ public class MainForm {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 transformViewPanel(lane.getLanePanel());
+                lane.refreshSize(viewPanel.getSize());
             }
         });
-        velocityButton.addMouseListener(new MouseAdapter() {
+        speedButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(velocity.getVelocityPanel());
+                transformViewPanel(speed.getSpeedPanel());
+                speed.refreshSize(viewPanel.getSize());
             }
         });
         accelerationButton.addMouseListener(new MouseAdapter() {
@@ -147,6 +149,7 @@ public class MainForm {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 transformViewPanel(acceleration.getAccelerationPanel());
+                acceleration.refreshSize(viewPanel.getSize());
             }
         });
         dashboardButton.addMouseListener(new MouseAdapter() {
@@ -154,6 +157,7 @@ public class MainForm {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 transformViewPanel(dashboard.getDashboardPanel());
+                dashboard.refreshSize(viewPanel.getSize());
             }
         });
         evaluationButton.addMouseListener(new MouseAdapter() {
@@ -164,33 +168,6 @@ public class MainForm {
             }
         });
 
-    }
-    private void setViewControlPanelEvent(){
-        createNewFrameButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e1) {
-                super.mouseClicked(e1);
-                try {
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();
-                }
-                JFrame frame = new JFrame();
-                frame.setContentPane(now);
-                frame.pack();
-                frame.setVisible(true);
-                //居中显示窗体
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                Dimension frameSize = frame.getSize();
-                frame.setLocation((screenSize.width-frameSize.width)/2,(screenSize.height-frameSize.height)/2);
-            }
-        });
     }
     private void setFileReadingControlPanelEvent(){
         filePathChooseButton.addActionListener(new ActionListener() {
@@ -321,7 +298,6 @@ public class MainForm {
         });
 
     }
-
     private void setSimulationControlPanelEvent(){
         ActionListener listener = new ActionListener() {
             @Override
@@ -374,11 +350,21 @@ public class MainForm {
         startReceiveButton.addActionListener(listener);
         endReceiveButton.addActionListener(listener);
     }
+    private void setWindowResizeEvent(){
+        wrapPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                speed.refreshSize(viewPanel.getSize());
+                acceleration.refreshSize(viewPanel.getSize());
+                lane.refreshSize(viewPanel.getSize());
+                trail.refreshSize(viewPanel.getSize());
+                dashboard.refreshSize(viewPanel.getSize());
+            }
+        });
+    }
 
 
-
-    private void setVISSIMControlPanelEvent()
-    {
+    private void setVISSIMControlPanelEvent(){
         startVISSIMButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -457,7 +443,7 @@ public class MainForm {
         refreshTimeSlider();
         base.receiveData(simulatedVehicle);
         dashboard.receiveData(simulatedVehicle);
-        velocity.receiveData(simulatedVehicle);
+        speed.receiveData(simulatedVehicle);
         acceleration.receiveData(simulatedVehicle);
         trail.receiveData(simulatedVehicle);
         lane.receiveData(simulatedVehicle);
@@ -489,7 +475,7 @@ public class MainForm {
     public void refreshSpeed(){
         if (player!=null){
             double speed = player.getSpeed();
-            speedLabel.setText(speed+"");
+            speedLabel.setText(speed + "");
         }
     }
     public void refreshCurrentPlayingSpeed(){

@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Hugh on 2015/2/16 0016.
@@ -52,10 +53,12 @@ public class Lane {
     public void receiveData(SimulatedVehicle simulatedVehicle){
         xyseries.add(simulatedVehicle.getSimulationTime(),simulatedVehicle.getLane());
     }
-    public JPanel getVelocityPanel() {
-        return lanePanel;
-    }
     public JPanel getLanePanel() {
         return lanePanel;
+    }
+    public void refreshSize(Dimension dimension){
+        chartPanel.setPreferredSize(dimension);
+        chartPanel.setSize(dimension);
+        chartPanel.setLocation(0,0);
     }
 }

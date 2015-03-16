@@ -40,17 +40,17 @@ public class Dashboard {
                         GradientPaintTransformType.VERTICAL));
         dialplot.setBackground(dialbackground);
         // 设置显示在表盘中央位置的信息
-        DialTextAnnotation dialtextannotation = new DialTextAnnotation("KM/H");
+        DialTextAnnotation dialtextannotation = new DialTextAnnotation("km/h");
         dialtextannotation.setFont(new Font("Dialog", 17, 17));
-        dialtextannotation.setRadius(0.6D);// 字体距离圆心的距离
+        dialtextannotation.setRadius(0.5D);// 字体距离圆心的距离
         dialplot.addLayer(dialtextannotation);
         DialValueIndicator dialvalueindicator = new DialValueIndicator(0);
         dialplot.addLayer(dialvalueindicator);
         // 根据表盘的直径大小（0.88），设置总刻度范围
         StandardDialScale standarddialscale = new StandardDialScale(0.0D,
-                200.0D, -120.0D, -300.0D, 10D, 9);
+                200.0D, -120.0D, -300.0D, 20D, 9);
         standarddialscale.setTickRadius(0.9D);
-        standarddialscale.setTickLabelOffset(0.1D);// 显示数字 距离圆边的距离
+        standarddialscale.setTickLabelOffset(0.17D);// 显示数字 距离圆边的距离
         standarddialscale.setTickLabelFont(new Font("Dialog", 0, 14));
         dialplot.addScale(0, standarddialscale);
         // 设置刻度范围（红色）
@@ -82,7 +82,7 @@ public class Dashboard {
 
         // 设置标题
 
-        jFreeChart.setTitle("速度");
+        jFreeChart.setTitle("Speed");
         chartPanel = new ChartPanel(jFreeChart);
         dashboardPanel.add(chartPanel);
     }
@@ -93,5 +93,12 @@ public class Dashboard {
     }
     public JPanel getDashboardPanel() {
         return dashboardPanel;
+    }
+    public void refreshSize(Dimension dimension){
+        double minLength = dimension.getHeight() < dimension.getWidth() ? dimension.getHeight() : dimension.getWidth();
+        Dimension dashboardSize = new Dimension((int)minLength,(int)minLength);
+        chartPanel.setPreferredSize(dashboardSize);
+        chartPanel.setSize(dashboardSize);
+        chartPanel.setLocation(0,0);
     }
 }

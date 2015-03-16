@@ -13,9 +13,9 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Comic Sans MS" size="72" style="1"/>
-          <foreground color="-16729330"/>
-          <text value="Welcome"/>
+          <font name="Microsoft YaHei" size="72" style="0"/>
+          <foreground color="-16745029"/>
+          <text value="分心驾驶"/>
         </properties>
       </component>
       <hspacer id="627ba">
