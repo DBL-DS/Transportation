@@ -7,9 +7,14 @@ import javax.swing.*;
  */
 public class Welcome {
     private JPanel welcomePanel;
-    private JLabel welcomeLabel;
 
     public JPanel getWelcomePanel() {
         return welcomePanel;
+    }
+
+    public void setBackground(String path){
+        ImageIcon imageIcon = new ImageIcon(path);
+        JLabel label = new JLabel(imageIcon);
+        welcomePanel.add(label);
     }
 }

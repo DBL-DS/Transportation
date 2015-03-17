@@ -7,6 +7,9 @@ import javax.swing.*;
  */
 public class Evaluation {
     private JPanel evaluationPanel;
+    private JLabel scoreLabel;
+    private JLabel totalTimeLabel;
+    private JLabel averageSpeedLabel;
 
     public JPanel getEvaluationPanel() {
         return evaluationPanel;

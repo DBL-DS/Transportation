@@ -456,16 +456,18 @@ public class MainForm {
         }
     }
     protected void setUI(SimulatedVehicle simulatedVehicle){
-        refreshStatusPanel();
-        refreshTimeSlider();
-        base.receiveData(simulatedVehicle);
-        dashboard.receiveData(simulatedVehicle);
-        speed.receiveData(simulatedVehicle);
-        acceleration.receiveData(simulatedVehicle);
-        trail.receiveData(simulatedVehicle);
-        lane.receiveData(simulatedVehicle);
-        if (vissimConnect){
-            vissimControl.receiveData(simulatedVehicle);
+        if (simulatedVehicle!=null){
+            refreshStatusPanel();
+            refreshTimeSlider();
+            base.receiveData(simulatedVehicle);
+            dashboard.receiveData(simulatedVehicle);
+            speed.receiveData(simulatedVehicle);
+            acceleration.receiveData(simulatedVehicle);
+            trail.receiveData(simulatedVehicle);
+            lane.receiveData(simulatedVehicle);
+            if (vissimConnect){
+                vissimControl.receiveData(simulatedVehicle);
+            }
         }
     }
     public void refreshStatusPanel(){
@@ -561,7 +563,7 @@ public class MainForm {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JFrame frame = new JFrame("SCANeR 数据仿真");
+        JFrame frame = new JFrame("分心驾驶模拟与评估系统");
         frame.setContentPane(new MainForm().wrapPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

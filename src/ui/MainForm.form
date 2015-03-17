@@ -8,8 +8,8 @@
     <properties>
       <alignmentX value="0.5"/>
       <background color="-1"/>
-      <minimumSize width="1000" height="600"/>
-      <preferredSize width="1000" height="600"/>
+      <minimumSize width="1000" height="700"/>
+      <preferredSize width="1000" height="700"/>
     </properties>
     <border type="none"/>
     <children>

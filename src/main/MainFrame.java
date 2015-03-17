@@ -27,7 +27,7 @@ public class MainFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        mainFrame = new JFrame("SCANeR 数据仿真");
+        mainFrame = new JFrame("分心驾驶模拟与评估系统");
         mainFrame.setContentPane(new MainForm().getWrapPanel());
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
