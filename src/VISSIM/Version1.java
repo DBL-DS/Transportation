@@ -24,7 +24,7 @@ public class Version1 {
 				Vehicle vehicle = net.getVehicle(1);
                 vehicle.setSpeed(1);
 
-                vehicle.MoveToPosition(10000,1,count/50000);
+                vehicle.MoveToPosition(10000,1,count/1000);
 			}
 			count++;
 
