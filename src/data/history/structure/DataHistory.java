@@ -1,5 +1,6 @@
 package data.history.structure;
 
+import data.valuation.receive.Zscore;
 import data.valuation.structure.Valuation;
 import data.vehicle.structure.SimulatedVehicle;
 
@@ -15,6 +16,7 @@ public class DataHistory {
     private ArrayList<SimulatedVehicle> vehicleList;
     private String saveTime;
     private Valuation valuation;
+    private Zscore scores;
 
     public DataHistory(ArrayList<SimulatedVehicle> vehicleList) {
         this.vehicleList = vehicleList;
@@ -37,4 +39,12 @@ public class DataHistory {
         return hashCode;
     }
     //TODO
+
+    public Zscore getScores() {
+        return scores;
+    }
+
+    public void setScores(Zscore scores) {
+        this.scores = scores;
+    }
 }
