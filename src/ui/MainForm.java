@@ -23,12 +23,12 @@ public class MainForm {
     private JPanel viewChoicePanel;
     private JButton trailButton;
     private JButton speedButton;
-    private JButton laneButton;
+    private JButton driftAngleButton;
     private JButton accelerationButton;
     private JButton evaluationButton;
     private JPanel timeControlPanel;
     private JPanel viewPanel;
-    private JButton dashboardButton;
+    private JButton offsetButton;
     private JPanel simulationControlPanel;
     private JButton startNetworkButton;
     private JButton simulationSettingsButton;
@@ -69,18 +69,20 @@ public class MainForm {
     private JButton closeVISSIMButton;
     private JButton inputStopButton;
     private JButton historyButton;
+    private JButton rotationalSpeedButton;
     private BaseData base;
     private Trail trail;
-    private Lane lane;
+    private DriftAngle driftAngle;
     private Speed speed;
     private Acceleration acceleration;
-    private Dashboard dashboard;
+    private Offset offset;
     private Evaluation evaluation;
     private History history;
     private JPanel now;
     private Welcome welcome;
-    private Player player;
+    private RotationalSpeed rotationalSpeed;
     private ListenPlayingDataThread listenPlayingDataThread;
+    private Player player;
     private VissimControl vissimControl;
     private boolean vissimConnect;
 
@@ -105,10 +107,11 @@ public class MainForm {
     private void initViewPanels(){
         base = new BaseData();
         trail = new Trail();
-        lane = new Lane();
         speed = new Speed();
         acceleration = new Acceleration();
-        dashboard = new Dashboard();
+        driftAngle = new DriftAngle();
+        rotationalSpeed = new RotationalSpeed();
+        offset = new Offset();
         evaluation = new Evaluation();
         history = new History();
         history.setModel();
@@ -132,14 +135,6 @@ public class MainForm {
                 trail.refreshSize(viewPanel.getSize());
             }
         });
-        laneButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                transformViewPanel(lane.getLanePanel());
-                lane.refreshSize(viewPanel.getSize());
-            }
-        });
         speedButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -156,12 +151,28 @@ public class MainForm {
                 acceleration.refreshSize(viewPanel.getSize());
             }
         });
-        dashboardButton.addMouseListener(new MouseAdapter() {
+        driftAngleButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                transformViewPanel(dashboard.getDashboardPanel());
-                dashboard.refreshSize(viewPanel.getSize());
+                transformViewPanel(driftAngle.getDriftPanel());
+                driftAngle.refreshSize(viewPanel.getSize());
+            }
+        });
+        offsetButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                transformViewPanel(offset.getOffsetPanel());
+                offset.refreshSize(viewPanel.getSize());
+            }
+        });
+        rotationalSpeedButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                transformViewPanel(rotationalSpeed.getRotationalSpeedPanel());
+                rotationalSpeed.refreshSize(viewPanel.getSize());
             }
         });
         evaluationButton.addMouseListener(new MouseAdapter() {
@@ -367,9 +378,9 @@ public class MainForm {
             public void componentResized(ComponentEvent e) {
                 speed.refreshSize(viewPanel.getSize());
                 acceleration.refreshSize(viewPanel.getSize());
-                lane.refreshSize(viewPanel.getSize());
+                driftAngle.refreshSize(viewPanel.getSize());
                 trail.refreshSize(viewPanel.getSize());
-                dashboard.refreshSize(viewPanel.getSize());
+                offset.refreshSize(viewPanel.getSize());
             }
         });
     }
@@ -471,11 +482,11 @@ public class MainForm {
             refreshStatusPanel();
             refreshTimeSlider();
             base.receiveData(simulatedVehicle);
-            dashboard.receiveData(simulatedVehicle);
+            offset.receiveData(simulatedVehicle);
             speed.receiveData(simulatedVehicle);
             acceleration.receiveData(simulatedVehicle);
             trail.receiveData(simulatedVehicle);
-            lane.receiveData(simulatedVehicle);
+            driftAngle.receiveData(simulatedVehicle);
             if (vissimConnect){
                 vissimControl.receiveData(simulatedVehicle);
             }

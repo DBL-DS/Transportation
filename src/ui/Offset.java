@@ -15,23 +15,22 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Hugh on 2015/2/16 0016.
+ * Created by Hugh on 2015/2/22 0022.
  */
-public class Lane {
-    private JPanel lanePanel;
-
+public class Offset {
+    private JPanel offsetPanel;
     private ChartPanel chartPanel;
     private XYSeries xyseries;
-    public Lane()
+    public Offset()
     {
         initPanel();
     }
 
     public void initPanel(){
-        lanePanel = new JPanel();
-        XYDataset xydataset = createDataset();
+        offsetPanel = new JPanel();
+        XYDataset xydataset = createDataSet();
         JFreeChart jfreechart = ChartFactory.createScatterPlot(
-                "Lane Curve", "Time", "Lane", xydataset,
+                "Speed Curve", "Time", "Speed", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 
         XYPlot xyplot = (XYPlot) jfreechart.getPlot();
@@ -41,24 +40,25 @@ public class Lane {
         x.setAutoRange(true);
 
         chartPanel = new ChartPanel(jfreechart);
-        lanePanel.add(chartPanel);
+        offsetPanel.add(chartPanel);
     }
 
-    public XYDataset createDataset() {
+    public XYDataset createDataSet() {
         xyseries = new XYSeries("");
         XYSeriesCollection xyseriescollection = new XYSeriesCollection();
         xyseriescollection.addSeries(xyseries);
         return xyseriescollection;
     }
     public void receiveData(SimulatedVehicle simulatedVehicle){
-        xyseries.add(simulatedVehicle.getSimulationTime(),simulatedVehicle.getLane());
+        xyseries.add(simulatedVehicle.getSimulationTime(), simulatedVehicle.getOffset());
     }
-    public JPanel getLanePanel() {
-        return lanePanel;
+    public JPanel getOffsetPanel() {
+        return offsetPanel;
     }
     public void refreshSize(Dimension dimension){
         chartPanel.setPreferredSize(dimension);
         chartPanel.setSize(dimension);
         chartPanel.setLocation(0,0);
     }
+
 }
