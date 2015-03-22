@@ -54,8 +54,10 @@ public class Dashboard {
         standarddialscale.setTickLabelFont(new Font("Dialog", 0, 14));
         dialplot.addScale(0, standarddialscale);
         // 设置刻度范围（红色）
+
         StandardDialRange standarddialrange = new StandardDialRange(0D, 120D,
                 Color.green);
+        
         standarddialrange.setInnerRadius(0.6D);
         standarddialrange.setOuterRadius(0.62D);
         dialplot.addLayer(standarddialrange);
