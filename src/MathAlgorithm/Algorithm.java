@@ -1,17 +1,30 @@
 package MathAlgorithm;
 
+import java.util.ArrayList;
+import java.util.RandomAccess;
+
 /**
  * Created by Allen on 2015/3/22.
  */
 public class Algorithm {
-    public static double getMax(double[] inputData) {
-        if (inputData == null || inputData.length == 0)
+    public static void main(String[] args) {
+        ArrayList<Double> test= new ArrayList<Double>();
+        for (int i = 0; i <200 ; i++) {
+            test.add(Math.random()) ;
+        }
+        long startMili=System.currentTimeMillis();
+        System.out.println(getZScore(test)[1]);
+        long endMili=System.currentTimeMillis();
+        System.out.print(endMili-startMili);
+    }
+    public static double getMax(ArrayList<Double> inputData) {
+        if (inputData == null || inputData.size() == 0)
             return -1;
-        int len = inputData.length;
-        double max = inputData[0];
+        int len = inputData.size();
+        double max = inputData.get(0);
         for (int i = 0; i < len; i++) {
-            if (max < inputData[i])
-                max = inputData[i];
+            if (max < inputData.get(i))
+                max = inputData.get(i);
         }
         return max;
     }
@@ -23,14 +36,14 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果,如果输入值不合法，返回为-1
      */
-    public static double getMin(double[] inputData) {
-        if (inputData == null || inputData.length == 0)
+    public static double getMin(ArrayList<Double> inputData) {
+        if (inputData == null || inputData.size() == 0)
             return -1;
-        int len = inputData.length;
-        double min = inputData[0];
+        int len = inputData.size();
+        double min = inputData.get(0);
         for (int i = 0; i < len; i++) {
-            if (min > inputData[i])
-                min = inputData[i];
+            if (min > inputData.get(i))
+                min = inputData.get(i);
         }
         return min;
     }
@@ -42,13 +55,13 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果
      */
-    public static double getSum(double[] inputData) {
-        if (inputData == null || inputData.length == 0)
+    public static double getSum(ArrayList<Double> inputData) {
+        if (inputData == null || inputData.size() == 0)
             return -1;
-        int len = inputData.length;
+        int len = inputData.size();
         double sum = 0;
         for (int i = 0; i < len; i++) {
-            sum = sum + inputData[i];
+            sum = sum + inputData.get(i);
         }
 
         return sum;
@@ -62,11 +75,11 @@ public class Algorithm {
      *     //       Data 输入数据数组
      * @return 运算结果
      */
-    public static int getCount(double[] inputData) {
+    public static int getCount(ArrayList<Double> inputData) {
         if (inputData == null)
             return -1;
 
-        return inputData.length;
+        return inputData.size();
     }
 
     /**
@@ -76,10 +89,10 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果
      */
-    public static double getAverage(double[] inputData) {
-        if (inputData == null || inputData.length == 0)
+    public static double getAverage(ArrayList<Double> inputData) {
+        if (inputData == null || inputData.size() == 0)
             return -1;
-        int len = inputData.length;
+        int len = inputData.size();
         double result;
         result = getSum(inputData) / len;
 
@@ -93,13 +106,13 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果
      */
-    public static double getSquareSum(double[] inputData) {
-        if (inputData == null || inputData.length == 0)
+    public static double getSquareSum(ArrayList<Double> inputData) {
+        if (inputData == null || inputData.size() == 0)
             return -1;
-        int len = inputData.length;
+        int len = inputData.size();
         double sqrsum = 0.0;
         for (int i = 0; i < len; i++) {
-            sqrsum = sqrsum + inputData[i] * inputData[i];
+            sqrsum = sqrsum + inputData.get(i) * inputData.get(i);
         }
 
         return sqrsum;
@@ -112,7 +125,7 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果
      */
-    public static double getVariance(double[] inputData) {
+    public static double getVariance(ArrayList<Double> inputData) {
         int count = getCount(inputData);
         double sqrsum = getSquareSum(inputData);
         double average = getAverage(inputData);
@@ -129,7 +142,7 @@ public class Algorithm {
      *            输入数据数组
      * @return 运算结果
      */
-    public static double getStandardDiviation(double[] inputData) {
+    public static double getStandardDiviation(ArrayList<Double> inputData) {
         double result;
         // 绝对值化很重要
         result = Math.sqrt(Math.abs(getVariance(inputData)));
@@ -137,11 +150,11 @@ public class Algorithm {
         return result;
 
     }
-    public static double[] getZScore(double[] inputData) {
-        double[] result = new double[inputData.length];
+    public static double[] getZScore(ArrayList<Double> inputData) {
+        double[] result = new double[inputData.size()];
         // 绝对值化很重要
-        for (int i = 0; i < inputData.length ; i++) {
-            result[i] = (inputData[i]-getAverage(inputData))/getStandardDiviation(inputData);
+        for (int i = 0; i < inputData.size() ; i++) {
+            result[i] = (inputData.get(i)-getAverage(inputData))/getStandardDiviation(inputData);
 
         }
 
