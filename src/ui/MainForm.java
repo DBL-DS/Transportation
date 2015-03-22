@@ -68,6 +68,7 @@ public class MainForm {
     private JButton startVISSIMButton;
     private JButton closeVISSIMButton;
     private JButton inputStopButton;
+    private JButton historyButton;
     private BaseData base;
     private Trail trail;
     private Lane lane;
@@ -75,6 +76,7 @@ public class MainForm {
     private Acceleration acceleration;
     private Dashboard dashboard;
     private Evaluation evaluation;
+    private History history;
     private JPanel now;
     private Welcome welcome;
     private Player player;
@@ -108,6 +110,8 @@ public class MainForm {
         acceleration = new Acceleration();
         dashboard = new Dashboard();
         evaluation = new Evaluation();
+        history = new History();
+        history.setModel();
         welcome = new Welcome();
         transformViewPanel(welcome.getWelcomePanel());
         vissimConnect = false;
@@ -165,6 +169,13 @@ public class MainForm {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 transformViewPanel(evaluation.getEvaluationPanel());
+            }
+        });
+        historyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                transformViewPanel(history.getHistoryPanel());
             }
         });
 

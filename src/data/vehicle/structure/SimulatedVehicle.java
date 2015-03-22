@@ -2,34 +2,34 @@ package data.vehicle.structure;
 
 /**
  * Created by Hugh on 2015/2/14 0014.
+ * 重要参数：
+ *          driftAngle（偏航角）：车头方向与道路中心线的夹角——利用模拟舱现有函数间接获取
+ *          offset（侧向偏位）：距离道路中心线的距离
+ *          rotationalSpeed(方向盘转速)：单位时间内方向盘转动的角度——利用模拟舱现有函数间接获取
  */
 public class SimulatedVehicle {
+    private double simulationTime;
     private double positionX;
     private double positionY;
     private double positionZ;
     private double speed;
     private double acceleration;
+    private double driftAngle;
+    private double offset;
     private double steeringWheel;
+    private double rotationalSpeed;
     private double gasPedal;
     private double breakPedal;
     private double clutchPedal;
-    private double rpm;
-    private double lane;
-    private double simulationTime;
-    private double laneLateralShift;
     private double gear;
-    private long lastSaveTime;
+    private double rpm;
 
-    public SimulatedVehicle() {
-        lastSaveTime = 0;
+    public double getSimulationTime() {
+        return simulationTime;
     }
 
-    public long getLastSaveTime() {
-        return lastSaveTime;
-    }
-
-    public void setLastSaveTime(long lastSaveTime) {
-        this.lastSaveTime = lastSaveTime;
+    public void setSimulationTime(double simulationTime) {
+        this.simulationTime = simulationTime;
     }
 
     public double getPositionX() {
@@ -72,12 +72,36 @@ public class SimulatedVehicle {
         this.acceleration = acceleration;
     }
 
+    public double getDriftAngle() {
+        return driftAngle;
+    }
+
+    public void setDriftAngle(double driftAngle) {
+        this.driftAngle = driftAngle;
+    }
+
+    public double getOffset() {
+        return offset;
+    }
+
+    public void setOffset(double offset) {
+        this.offset = offset;
+    }
+
     public double getSteeringWheel() {
         return steeringWheel;
     }
 
     public void setSteeringWheel(double steeringWheel) {
         this.steeringWheel = steeringWheel;
+    }
+
+    public double getRotationalSpeed() {
+        return rotationalSpeed;
+    }
+
+    public void setRotationalSpeed(double rotationalSpeed) {
+        this.rotationalSpeed = rotationalSpeed;
     }
 
     public double getGasPedal() {
@@ -104,43 +128,19 @@ public class SimulatedVehicle {
         this.clutchPedal = clutchPedal;
     }
 
-    public double getRpm() {
-        return rpm;
-    }
-
-    public void setRpm(double rpm) {
-        this.rpm = rpm;
-    }
-
-    public double getLane() {
-        return lane;
-    }
-
-    public void setLane(double lane) {
-        this.lane = lane;
-    }
-
-    public double getSimulationTime() {
-        return simulationTime;
-    }
-
-    public void setSimulationTime(double simulationTime) {
-        this.simulationTime = simulationTime;
-    }
-
-    public double getLaneLateralShift() {
-        return laneLateralShift;
-    }
-
-    public void setLaneLateralShift(double laneLateralShift) {
-        this.laneLateralShift = laneLateralShift;
-    }
-
     public double getGear() {
         return gear;
     }
 
     public void setGear(double gear) {
         this.gear = gear;
+    }
+
+    public double getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(double rpm) {
+        this.rpm = rpm;
     }
 }
