@@ -1,8 +1,8 @@
 package player;
 
+import data.history.structure.DataHistory;
 import data.vehicle.receieve.SimulationReadFile;
 import data.vehicle.structure.SimulatedVehicle;
-import data.vehicle.structure.VehicleHistory;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Player {
     private double speed;
     private double dataUnitTimeGap;
-    private ArrayList<VehicleHistory> historyList;
+    private ArrayList<DataHistory> historyList;
     private ArrayList<SimulatedVehicle> playingList;
     private SimulatedVehicle playingData;
     private int totalIndex;
@@ -51,9 +51,9 @@ public class Player {
     private void addDataToHistoryList(){
         if (playingList!=null&&playingList.size()!=0){
             if (historyList==null){
-                historyList = new ArrayList<VehicleHistory>();
+                historyList = new ArrayList<DataHistory>();
             }
-            historyList.add(new VehicleHistory(playingList));
+            historyList.add(new DataHistory(playingList));
             readyToPlay = true;
         }
     }
@@ -64,7 +64,7 @@ public class Player {
         dataUpdated = false;
         return playingData;
     }
-    public ArrayList<VehicleHistory> getHistoryList() {
+    public ArrayList<DataHistory> getHistoryList() {
         return historyList;
     }
 

@@ -30,7 +30,7 @@ public class Lane {
     public void initPanel(){
         lanePanel = new JPanel();
         XYDataset xydataset = createDataset();
-        JFreeChart jfreechart = ChartFactory.createXYLineChart(
+        JFreeChart jfreechart = ChartFactory.createScatterPlot(
                 "Lane Curve", "Time", "Lane", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 

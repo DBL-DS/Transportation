@@ -11,6 +11,8 @@ public class Valuation {
     private double averageSpeed;
     private ArrayList<Double> queueLengthList;
     private double score;
+    private double totalCarbon;
+    private double sharpBrake;
 
     public double getTotalTime() {
         return totalTime;
@@ -50,5 +52,21 @@ public class Valuation {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public double getTotalCarbon() {
+        return totalCarbon;
+    }
+
+    public void setTotalCarbon(double totalCarbon) {
+        this.totalCarbon = totalCarbon;
+    }
+
+    public double getSharpBrake() {
+        return sharpBrake;
+    }
+
+    public void setSharpBrake(double sharpBrake) {
+        this.sharpBrake = sharpBrake;
     }
 }

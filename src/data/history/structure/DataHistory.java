@@ -17,12 +17,14 @@ public class DataHistory {
     private Valuation valuation;
 
     public DataHistory(ArrayList<SimulatedVehicle> vehicleList) {
-        this.vehicleList = vehicleList;
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        saveTime = df.format(new Date());
-
-        hashCode = vehicleList.hashCode();
+        if (vehicleList!=null){
+            this.vehicleList = vehicleList;
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            saveTime = df.format(new Date());
+            hashCode = vehicleList.hashCode();
+        } else {
+            System.err.println("DataHistory 初始化错误，传入的vehicleList为空！");
+        }
     }
 
     public ArrayList<SimulatedVehicle> getVehicleList() {

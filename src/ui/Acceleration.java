@@ -25,7 +25,7 @@ public class Acceleration {
     {
         accelerationPanel = new JPanel();
         XYDataset xydataset = createDataSet();
-        JFreeChart jfreechart = ChartFactory.createXYLineChart(
+        JFreeChart jfreechart = ChartFactory.createScatterPlot(
                 "Acceleration Curve", "Time", "Acceleration", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 

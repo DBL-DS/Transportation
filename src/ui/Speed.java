@@ -28,7 +28,7 @@ public class Speed {
     public void initPanel(){
         speedPanel = new JPanel();
         XYDataset xydataset = createDataSet();
-        JFreeChart jfreechart = ChartFactory.createXYLineChart(
+        JFreeChart jfreechart = ChartFactory.createScatterPlot(
                 "Speed Curve", "Time", "Speed", xydataset,
                 PlotOrientation.VERTICAL, false, true, false);
 

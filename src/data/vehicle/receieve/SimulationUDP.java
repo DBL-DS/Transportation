@@ -55,20 +55,21 @@ public class SimulationUDP {
 
     private SimulatedVehicle byteToSimulatedVehicle(byte[] buffer){
         SimulatedVehicle s = new SimulatedVehicle();
-        s.setPositionX(getFloat(buffer,VehicleUDP.PositionX));
-        s.setPositionY(getFloat(buffer,VehicleUDP.PositionY));
-        s.setPositionZ(getFloat(buffer,VehicleUDP.PositionZ));
-        s.setSpeed(getFloat(buffer,VehicleUDP.Speed));
-        s.setAcceleration(getFloat(buffer,VehicleUDP.Acceleration));
-        s.setSteeringWheel(getFloat(buffer,VehicleUDP.SteeringWheel));
-        s.setGasPedal(getFloat(buffer,VehicleUDP.GasPedal));
-        s.setBreakPedal(getFloat(buffer,VehicleUDP.BreakPedal));
-        s.setClutchPedal(getFloat(buffer,VehicleUDP.ClutchPedal));
-        s.setRpm(getFloat(buffer,VehicleUDP.Rpm));
-        s.setLane(getFloat(buffer,VehicleUDP.Lane));
-        s.setSimulationTime(getFloat(buffer,VehicleUDP.SimulationTime));
-        s.setLaneLateralShift(getFloat(buffer,VehicleUDP.LaneLateralShift));
+        s.setSimulationTime(getFloat(buffer, VehicleUDP.SimulationTime));
+        s.setPositionX(getFloat(buffer, VehicleUDP.PositionX));
+        s.setPositionY(getFloat(buffer, VehicleUDP.PositionY));
+        s.setPositionZ(getFloat(buffer, VehicleUDP.PositionZ));
+        s.setSpeed(getFloat(buffer, VehicleUDP.Speed));
+        s.setAcceleration(getFloat(buffer, VehicleUDP.Acceleration));
+        s.setDriftAngle(getFloat(buffer, VehicleUDP.DriftAngle));
+        s.setOffset(getFloat(buffer, VehicleUDP.Offset));
+        s.setSteeringWheel(getFloat(buffer, VehicleUDP.SteeringWheel));
+        s.setRotationalSpeed(getFloat(buffer, VehicleUDP.RotationalSpeed));
+        s.setGasPedal(getFloat(buffer, VehicleUDP.GasPedal));
+        s.setBreakPedal(getFloat(buffer, VehicleUDP.BreakPedal));
+        s.setClutchPedal(getFloat(buffer, VehicleUDP.ClutchPedal));
         s.setGear(getFloat(buffer,VehicleUDP.Gear));
+        s.setRpm(getFloat(buffer, VehicleUDP.Rpm));
         return s;
     }
     private float getFloat(byte[] b, int index) {
