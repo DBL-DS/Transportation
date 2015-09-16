@@ -7,7 +7,7 @@ public class Version1 {
 
 	SimulatedVehicle simulatedVehicle;
 
-
+    //测试连接用的测试模块
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		VISSIM vissim = new VISSIM();
